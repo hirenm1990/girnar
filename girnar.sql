@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2017 at 12:18 PM
+-- Generation Time: Sep 13, 2017 at 12:48 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -44,7 +44,7 @@ CREATE TABLE `bank_details` (
 --
 
 CREATE TABLE `buyer_details` (
-  `Id` int(5) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `country` varchar(255) NOT NULL,
@@ -200,7 +200,7 @@ CREATE TABLE `countries` (
 --
 
 CREATE TABLE `delivery_order` (
-  `Id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `contract_id` int(11) NOT NULL,
   `shipment_id` int(11) NOT NULL,
   `forwarder_id` int(5) DEFAULT NULL,
@@ -406,7 +406,7 @@ CREATE TABLE `shipments` (
 --
 
 CREATE TABLE `stocks_products` (
-  `Id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -439,9 +439,10 @@ CREATE TABLE `upload_documents` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `first_name` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `last_name` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `first_name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `last_name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `username` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `isActive` int(11) DEFAULT '1',
@@ -449,6 +450,13 @@ CREATE TABLE `users` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `remember_token` varchar(255) NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `first_name`, `last_name`, `username`, `email`, `password`, `isActive`, `created_at`, `updated_at`, `remember_token`) VALUES
+(1, 'Lakhman', NULL, NULL, NULL, 'bhutiyalakhman@gmail.com', '$2y$10$CKAlp5mQY8iu6qRgZ4sY4.nQ0XLT.9AI47gP8iFJ/tHx8S53w7Za.', 1, '2017-09-13 04:58:46', '2017-09-13 04:58:46', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -492,7 +500,7 @@ ALTER TABLE `bank_details`
 -- Indexes for table `buyer_details`
 --
 ALTER TABLE `buyer_details`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `commercial_invoice_details`
@@ -540,7 +548,7 @@ ALTER TABLE `countries`
 -- Indexes for table `delivery_order`
 --
 ALTER TABLE `delivery_order`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `delivery_terms`
@@ -600,7 +608,7 @@ ALTER TABLE `shipments`
 -- Indexes for table `stocks_products`
 --
 ALTER TABLE `stocks_products`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `upload_documents`
@@ -633,7 +641,7 @@ ALTER TABLE `bank_details`
 -- AUTO_INCREMENT for table `buyer_details`
 --
 ALTER TABLE `buyer_details`
-  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `commercial_invoice_details`
 --
@@ -673,7 +681,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `delivery_order`
 --
 ALTER TABLE `delivery_order`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `delivery_terms`
 --
@@ -723,7 +731,7 @@ ALTER TABLE `shipments`
 -- AUTO_INCREMENT for table `stocks_products`
 --
 ALTER TABLE `stocks_products`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `upload_documents`
 --
@@ -733,7 +741,7 @@ ALTER TABLE `upload_documents`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `vgm_details`
 --

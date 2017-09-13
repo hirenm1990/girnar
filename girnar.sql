@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2017 at 12:48 PM
+-- Generation Time: Sep 13, 2017 at 01:14 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -456,7 +456,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `first_name`, `last_name`, `username`, `email`, `password`, `isActive`, `created_at`, `updated_at`, `remember_token`) VALUES
-(1, 'Lakhman', NULL, NULL, NULL, 'bhutiyalakhman@gmail.com', '$2y$10$CKAlp5mQY8iu6qRgZ4sY4.nQ0XLT.9AI47gP8iFJ/tHx8S53w7Za.', 1, '2017-09-13 04:58:46', '2017-09-13 04:58:46', '0000-00-00 00:00:00');
+(1, 'Lakhman', NULL, NULL, NULL, 'bhutiyalakhman@gmail.com', '$2y$10$CKAlp5mQY8iu6qRgZ4sY4.nQ0XLT.9AI47gP8iFJ/tHx8S53w7Za.', 1, '2017-09-13 10:55:06', '2017-09-13 04:58:46', 'RcTlN6O2EUV3w33P11umXxIQn45PSufQCbNGPB50cFIlsQl2W1xRCr37iTHO');
 
 -- --------------------------------------------------------
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2017 at 10:42 AM
+-- Generation Time: Sep 13, 2017 at 12:18 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -35,6 +35,51 @@ CREATE TABLE `bank_details` (
   `account_no` varchar(50) CHARACTER SET utf8 NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `buyer_details`
+--
+
+CREATE TABLE `buyer_details` (
+  `Id` int(5) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `country` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `is_active` tinyint(2) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `commercial_invoice_details`
+--
+
+CREATE TABLE `commercial_invoice_details` (
+  `id` int(11) NOT NULL,
+  `contract_id` int(11) NOT NULL,
+  `shipment_id` int(11) NOT NULL,
+  `buyer_bank_name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `buyer_bank_details` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `comm_invoice_no` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `comm_invoice_date` date NOT NULL,
+  `lc_no` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `lc_date` date NOT NULL,
+  `bl_no` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `bl_date` date NOT NULL,
+  `vessel_no` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `country_of_origin` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `drawn_under` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `specification` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `comm_invoice_notes` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `comm_invoice_discount` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -76,6 +121,20 @@ CREATE TABLE `containers` (
   `line_seal_no` varchar(100) CHARACTER SET utf8 NOT NULL,
   `gross weight` int(11) NOT NULL,
   `container_product_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `container_load_status`
+--
+
+CREATE TABLE `container_load_status` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `detail` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -137,12 +196,109 @@ CREATE TABLE `countries` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `delivery_order`
+--
+
+CREATE TABLE `delivery_order` (
+  `Id` int(11) NOT NULL,
+  `contract_id` int(11) NOT NULL,
+  `shipment_id` int(11) NOT NULL,
+  `forwarder_id` int(5) DEFAULT NULL,
+  `shipment_line` varchar(255) DEFAULT NULL,
+  `freight` varchar(255) DEFAULT NULL,
+  `total_freight` varchar(255) DEFAULT NULL,
+  `thc` varchar(255) DEFAULT NULL,
+  `blc` varchar(255) DEFAULT NULL,
+  `vessel_name` varchar(255) DEFAULT NULL,
+  `voyage_no` varchar(255) DEFAULT NULL,
+  `eta_origin` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `etd_origin` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `eta_destination` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `eta_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `total_transit` varchar(255) DEFAULT NULL,
+  `vgm_cutoff` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `container_gate_open` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `gate_cutoff` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `document_cutoff` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `si_cutoff` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `stuffing_from` date NOT NULL DEFAULT '0000-00-00',
+  `stuffing_to` date NOT NULL DEFAULT '0000-00-00',
+  `total_detention_days` varchar(255) DEFAULT NULL,
+  `total_demurrage_days` varchar(255) DEFAULT NULL,
+  `change_eta_destination_port` varchar(255) DEFAULT '0000-00-00',
+  `change_total_transit_time` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `delivery_terms`
 --
 
 CREATE TABLE `delivery_terms` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discharge_ports`
+--
+
+CREATE TABLE `discharge_ports` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `document_status`
+--
+
+CREATE TABLE `document_status` (
+  `id` int(11) NOT NULL,
+  `contract_id` int(11) NOT NULL,
+  `shipment_id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `final_destination`
+--
+
+CREATE TABLE `final_destination` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `table_name` varchar(50) NOT NULL,
+  `table_id` varchar(20) NOT NULL,
+  `operation` varchar(20) NOT NULL,
+  `log` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -246,12 +402,46 @@ CREATE TABLE `shipments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stocks_products`
+--
+
+CREATE TABLE `stocks_products` (
+  `Id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `upload_documents`
+--
+
+CREATE TABLE `upload_documents` (
+  `id` int(11) NOT NULL,
+  `contract_id` int(11) NOT NULL,
+  `shipment_id` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `filetype` varchar(20) NOT NULL,
+  `extension` varchar(255) NOT NULL DEFAULT '',
+  `size` varchar(255) NOT NULL DEFAULT '',
+  `location` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `first_name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `last_name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8 NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `isActive` int(11) DEFAULT '1',
@@ -299,6 +489,18 @@ ALTER TABLE `bank_details`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `buyer_details`
+--
+ALTER TABLE `buyer_details`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `commercial_invoice_details`
+--
+ALTER TABLE `commercial_invoice_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `company_details`
 --
 ALTER TABLE `company_details`
@@ -308,6 +510,12 @@ ALTER TABLE `company_details`
 -- Indexes for table `containers`
 --
 ALTER TABLE `containers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `container_load_status`
+--
+ALTER TABLE `container_load_status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -329,9 +537,39 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `delivery_order`
+--
+ALTER TABLE `delivery_order`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexes for table `delivery_terms`
 --
 ALTER TABLE `delivery_terms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `discharge_ports`
+--
+ALTER TABLE `discharge_ports`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `document_status`
+--
+ALTER TABLE `document_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `final_destination`
+--
+ALTER TABLE `final_destination`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -359,6 +597,18 @@ ALTER TABLE `shipments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `stocks_products`
+--
+ALTER TABLE `stocks_products`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `upload_documents`
+--
+ALTER TABLE `upload_documents`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -380,6 +630,16 @@ ALTER TABLE `vgm_details`
 ALTER TABLE `bank_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `buyer_details`
+--
+ALTER TABLE `buyer_details`
+  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `commercial_invoice_details`
+--
+ALTER TABLE `commercial_invoice_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `company_details`
 --
 ALTER TABLE `company_details`
@@ -388,6 +648,11 @@ ALTER TABLE `company_details`
 -- AUTO_INCREMENT for table `containers`
 --
 ALTER TABLE `containers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `container_load_status`
+--
+ALTER TABLE `container_load_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `container_product`
@@ -405,9 +670,34 @@ ALTER TABLE `contracts`
 ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `delivery_order`
+--
+ALTER TABLE `delivery_order`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `delivery_terms`
 --
 ALTER TABLE `delivery_terms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `discharge_ports`
+--
+ALTER TABLE `discharge_ports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `document_status`
+--
+ALTER TABLE `document_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `final_destination`
+--
+ALTER TABLE `final_destination`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `packages`
@@ -428,6 +718,16 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `shipments`
 --
 ALTER TABLE `shipments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `stocks_products`
+--
+ALTER TABLE `stocks_products`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `upload_documents`
+--
+ALTER TABLE `upload_documents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`

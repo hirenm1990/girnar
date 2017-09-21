@@ -16,6 +16,18 @@
                             <input type="text" class="form-control" name="name" placeholder="" required>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Full Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="full_name" placeholder="" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Cents</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="cents" placeholder="" required>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">

@@ -29,7 +29,15 @@
                         <th>Sr No.</th>
                         <th>Contract No</th>
                         <th>Contract Date</th>
+                        <th>CI No.</th>
                         <th>Buyer Name</th>
+                        <th>Destination</th>
+                        <th>Products</th>
+                        <th>Shipment</th>
+                        <th>DO</th>
+                        <th>RM</th>
+                        <th>SF</th>
+                        <th>CI</th>
                         <th>Dollor Exchange<br>Rate</th>
                         <th>Action</th>
                     </thead>
@@ -53,7 +61,15 @@ $(document).ready(function() {
           {data: 'DT_Row_Index'},
           {data: 'contract_no'},
           {data: 'contract_date'},
+          {data: 'ci_no'},
           {data: 'buyer_id'},
+          {data: 'destination'},
+          {data: 'products'},
+          {data: 'shipment'},
+          {data: 'do'},
+          {data: 'rm'},
+          {data: 'sf'},
+          {data: 'ci'},
           {data: 'dollor_exchange_rate'},
           {data: 'action'},
       ]

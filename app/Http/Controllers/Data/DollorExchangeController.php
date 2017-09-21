@@ -36,6 +36,8 @@ class DollorExchangeController extends Controller
 
         $dollor_exchange = new DollorExchanges;
         $dollor_exchange->name = $input['name'];
+        $dollor_exchange->full_name = $input['full_name'];
+        $dollor_exchange->cents = $input['cents'];
         $dollor_exchange->save();
 
     	return redirect('dollorexchanges')->with('message','Dollor Exchange Added Successfully.');
@@ -64,6 +66,8 @@ class DollorExchangeController extends Controller
 
         $dollor_exchange = DollorExchanges::find($dollor_exchange_id);
         $dollor_exchange->name = $input['name'];
+        $dollor_exchange->full_name = $input['full_name'];
+        $dollor_exchange->cents = $input['cents'];
         $dollor_exchange->save();
 
         return redirect('dollorexchanges')->with('message','Dollor Exchange Update Successfully.');

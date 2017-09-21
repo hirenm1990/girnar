@@ -16,11 +16,21 @@
                             <input type="text" class="form-control" name="name" value="{{ $dollorexchange->name }}" placeholder="" required>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Full Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="name" value="{{ $dollorexchange->full_name }}" placeholder="" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Cents</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="name" value="{{ $dollorexchange->cents }}" placeholder="" required>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-sm-9 col-md-offset-3">
-                            <button type="submit" class="btn btn-primary"> Update</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Update</button>
                         </div>
                     </div>
                 </div>
@@ -31,9 +41,8 @@
     <!-- </div> -->
 <!-- </div> -->
 @endsection
-
 @section('jquery')
 <script type="text/javascript">
-    
+ 
 </script>
 @endsection

@@ -17,6 +17,7 @@ use App\FinalDestinations;
 use App\Countries;
 use App\Products;
 use App\Packages;
+use App\ContractProducts;
 
 
 class ContractController extends Controller
@@ -78,20 +79,40 @@ class ContractController extends Controller
         $contract->dollor_exchange_id = $input['dollor_exchange_id'];
         $contract->save();
 
+        foreach ($input['loading_port_id'] as $key => $value) {
+            $ = new shipment_containers_details;
+        }
+
         foreach($input['shipment'] as $key => $value){
             $shipment = new Shipments;
             $shipment->contract_id = $contract->id;
             $shipment->shipment = $input['shipment'][$key];  
-            $shipment->shipment_notes = $input['shipment_notes'][$key];  
-            $shipment->buyer_name = $input['buyer_name_shipment'][$key];  
-            $shipment->buyer_address = $input['buyer_address_shipment'][$key];  
-            $shipment->loading_port_id = $input['loading_port_id'][$key];  
-            $shipment->discharge_port_id = $input['discharge_port_id'][$key];  
-            $shipment->final_destination_id = $input['final_destination_id'][$key];  
-            $shipment->destination_country_id = $input['destination_country_id'][$key];
+            $shipment->shipment_code = $input['shipment_code'][$key];
+            $shipment->shipment_notes = $input['shipment_notes'][$key];
+            // $shipment->buyer_name = $input['buyer_name_shipment'][$key];  
+            // $shipment->buyer_address = $input['buyer_address_shipment'][$key];  
+            // $shipment->loading_port_id = $input['loading_port_id'][$key];  
+            // $shipment->discharge_port_id = $input['discharge_port_id'][$key];  
+            // $shipment->final_destination_id = $input['final_destination_id'][$key];  
+            // $shipment->destination_country_id = $input['destination_country_id'][$key];
             $shipment->save();
+            foreach ($input['shipment_code'] as $key => $value) {
+                if($value == $shipment->shipment_code){
+                    $product = new ContractProducts;
+                    $product->contract_id = $contract->id;
+                    $product->shipment_id = $shipment->id;
+                    $product->discharge_port = $input['discharge_port'][$key];
+                    $product->product_id = $input['product_id'][$key];
+                    $product->package_id = $input['package_id'][$key];
+                    $product->specification = $input['specification'][$key];
+                    $product->qty = $input['qty'][$key];
+                    $product->rate = $input['rate'][$key];
+                    $product->amount = $input['amount'][$key];
+                    $product->save();
+                }
+            }
         }
-        
+
         return redirect('contracts')->with('message','Contract Added Successfully');
     }
     public function edit( $contract_id )
@@ -178,14 +199,21 @@ class ContractController extends Controller
         return Datatables::of($contracts)
         ->addIndexColumn()
         ->addColumn('contract_no', function ($contracts) { 
-            return '<a href="contract/detail/'.$contracts->id.'">'.$contracts->contract_no.'</a>';
+            // return '<a href="contract/detail/'.$contracts->id.'">'.$contracts->contract_no.'</a>';
+            return $contracts->contract_no;
         })
         ->editColumn('contract_date', function ($contracts) { if(empty($contracts->contract_date)) { return '-'; }else { return $contracts->contract_date; } })
+        ->editColumn('ci_no', function ($contracts) { })
+        ->editColumn('destination', function ($contracts) { })
+        ->editColumn('products', function ($contracts) { })
+        ->editColumn('shipment', function ($contracts) { })
+        ->editColumn('do', function ($contracts) { })
+        ->editColumn('rm', function ($contracts) { })
+        ->editColumn('sf', function ($contracts) { })
+        ->editColumn('ci', function ($contracts) { })
         ->editColumn('buyer_id', function ($contracts) { return $contracts->buyer->name; })
         ->addColumn('action', function ($contracts) {
-            return '<a href="contract/edit/'.$contracts->id.'" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i> Edit</a>&nbsp
-                    <a href="contract/delete/'.$contracts->id.'" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;
-                    ';
+            return '<a href="contract/delete/'.$contracts->id.'" class="btn btn-primary btn-xs delete"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;';
         })
         ->make(true);
     }

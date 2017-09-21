@@ -15,6 +15,8 @@ use App\Ports;
 use App\DischargePorts;
 use App\FinalDestinations;
 use App\Countries;
+use App\Products;
+use App\Packages;
 
 
 class ContractController extends Controller
@@ -34,8 +36,10 @@ class ContractController extends Controller
         $final_destinations = FinalDestinations::where('isActive',1)->get();
         $discharge_ports = DischargePorts::where('isActive',1)->get();
         $ports = Ports::where('isActive',1)->get();
+        $products = Products::where('isActive',1)->get();
+        $packages = Packages::where('isActive',1)->get();
 
-        return view('contract.create',compact('countries','final_destinations','discharge_ports','ports','surveyors','dollor_exchanges','buyers','delivery_terms','payment_terms'));
+        return view('contract.create',compact('countries','packages','products','final_destinations','discharge_ports','ports','surveyors','dollor_exchanges','buyers','delivery_terms','payment_terms'));
     }
     public function store(Request $request)
     {
@@ -90,7 +94,7 @@ class ContractController extends Controller
         
         return redirect('contracts')->with('message','Contract Added Successfully');
     }
-    public function edit($contract_id)
+    public function edit( $contract_id )
     {
         $surveyors = Surveyors::where('isActive',1)->get();
         $dollor_exchanges = DollorExchanges::where('isActive',1)->get();
@@ -105,7 +109,7 @@ class ContractController extends Controller
         $contract = Contracts::find($contract_id);
         return view('contract.edit',compact('contract','shipments','countries','discharge_ports','final_destinations','ports','surveyors','dollor_exchanges','buyers','delivery_terms','payment_terms'));
     }
-    public function update(Request $request, $contract_id)
+    public function update( Request $request, $contract_id )
     {
         $input = $request->all();
         $rules = [
@@ -161,7 +165,7 @@ class ContractController extends Controller
 
         return redirect('contracts')->with('message','Contract Update Successfully.');
     }
-    public function delete($contract_id)
+    public function delete( $contract_id )
     {
         $contract = Contracts::find($contract_id);
         $contract->isActive = 0;

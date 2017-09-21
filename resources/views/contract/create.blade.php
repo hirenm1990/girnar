@@ -209,6 +209,54 @@
                     </div>
 
                     <div class="panel-heading" align="left"><button type="button" class="btn btn-warning add_more_shipment">Add More Shipment</button></div>
+
+                    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+                <div class="panel-heading" align="center"><b><h3>Add Product</h3></b></div>
+                <hr>
+                <!-- <div class="product_detail"> -->
+                <!-- <div class="panel-body product_remove"> -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Shipment</th>
+                            <th>Product</th>
+                            <th>Package</th>
+                            <th>Specification</th>
+                            <th>Qty</th>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control select2" name="">
+                                        <option></option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control select2" name="">
+                                        @foreach($products as $product)
+                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control select2" name="">
+                                        @foreach($packages as $package)
+                                        <option value="{{ $package->id }}">{{ $package->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td><input type="text" name="" class="form-control"></td>
+                                <td><input type="text" name="" class="form-control"></td>
+                                <td><input type="text" name="" class="form-control"></td>
+                                <td><input type="text" name="" class="form-control"></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="panel-heading" align="left"><button type="button" class="btn btn-warning add_more_product">Add More Product</button></div>
+
                     <div class="panel-heading" align="right"><button class="btn btn-primary">Save</button></div>
                 </form>
                 </div>

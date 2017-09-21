@@ -15,7 +15,8 @@ class DeliveryOrderController extends Controller
     }
     public function create()
     {
-    	return view('deliveryorder.create');
+    	$forwarders = Forwarders::where('isActive',1)->get();
+        return view('deliveryorder.create',compact('forwarders'));
     }
     public function store(Request $request)
     {

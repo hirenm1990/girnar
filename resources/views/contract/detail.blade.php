@@ -5,9 +5,10 @@
     <!-- <div class="row"> -->
         <!-- <div class="col-md-8 col-md-offset-2"> -->
             <div class="panel panel-default">
-                <div class="panel-heading"><b>Contract Details</b>
+                <div class="panel-heading"><b>Contract Details</b>&nbsp;&nbsp;&nbsp;
+                Shipment :
                 @foreach($shipments as $shipment)
-                  <a href="{{ URL::to('/') }}/shipment/edit/{{ $shipment->id }}" class="btn btn-primary btn-xs">{{ $shipment->shipment }}</a>
+                <a href="{{ URL::to('/') }}/shipment/edit/{{ $shipment->id }}" class="btn btn-info btn-xs">{{ $shipment->shipment }}</a>
                 @endforeach
                 </div>
 

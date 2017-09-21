@@ -31,6 +31,22 @@ Route::get('contract/detail/{contract_id}', 'ContractController@detail');
 Route::get('contract/data', 'ContractController@data');
 Route::get('contract/ajaxgetbuyerdetails', 'ContractController@ajaxgetbuyerdetails');
 
+// Shipment 
+
+Route::get('shipment/edit/{shipment_id}', 'ShipmentController@edit');
+Route::post('shipment/edit/{shipment_id}', 'ShipmentController@update');
+Route::get('shipment/delete/{shipment_id}', 'ShipmentController@delete');
+// Route::get('shipment/edit/{contract_id}', 'ShipmentController@edit');
+
+// Delivery Order
+
+Route::get('deliveryorders','DeliveryOrderController@index');
+Route::get('deliveryorder/create','DeliveryOrderController@create');
+Route::post('deliveryorder/create','DeliveryOrderController@store');
+Route::get('deliveryorder/edit/{deliveryorder_id}','DeliveryOrderController@edit');
+Route::post('deliveryorder/edit/{deliveryorder_id}','DeliveryOrderController@update');
+Route::post('deliveryorder/delete/{deliveryorder_id}','DeliveryOrderController@delete');
+
 // Company Details
 Route::get('companys','Data\CompanyController@index');
 Route::get('company/create','Data\CompanyController@create');

@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShipmentContainerDetails extends Model
+class LodingPortDetails extends Model
 {
-    protected $table = 'shipment_containers_details';
+    protected $table = 'loding_port_details';
     protected $primaryKey = 'id';
 }

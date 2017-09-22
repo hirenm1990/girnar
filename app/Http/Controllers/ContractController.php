@@ -18,6 +18,7 @@ use App\Countries;
 use App\Products;
 use App\Packages;
 use App\ContractProducts;
+use App\LodingPortDetails;
 
 
 class ContractController extends Controller
@@ -26,6 +27,8 @@ class ContractController extends Controller
 	{
         return view('contract.index');
     }
+
+
     public function create() 
     {
         $surveyors = Surveyors::where('isActive',1)->get();
@@ -42,6 +45,8 @@ class ContractController extends Controller
 
         return view('contract.create',compact('countries','packages','products','final_destinations','discharge_ports','ports','surveyors','dollor_exchanges','buyers','delivery_terms','payment_terms'));
     }
+
+
     public function store(Request $request)
     {
         $input = $request->all();
@@ -68,6 +73,7 @@ class ContractController extends Controller
         $contract->contract_no = $input['contract_no'];
         $contract->contract_date = date('Y-m-d',strtotime($input['contract_date']));
         $contract->surveyor_id = $input['surveyor_id'];
+        $contract->purchase_order_no = $input['purchase_order_no'];
         $contract->buyer_id = $input['buyer_id'];
         $contract->buyer_name = $input['buyer_name'];
         $contract->buyer_address = $input['buyer_address'];
@@ -79,29 +85,35 @@ class ContractController extends Controller
         $contract->dollor_exchange_id = $input['dollor_exchange_id'];
         $contract->save();
 
-        foreach ($input['loading_port_id'] as $key => $value) {
-            $ = new shipment_containers_details;
-        }
-
         foreach($input['shipment'] as $key => $value){
             $shipment = new Shipments;
             $shipment->contract_id = $contract->id;
-            $shipment->shipment = $input['shipment'][$key];  
             $shipment->shipment_code = $input['shipment_code'][$key];
+            $shipment->shipment = $input['shipment'][$key];
             $shipment->shipment_notes = $input['shipment_notes'][$key];
-            // $shipment->buyer_name = $input['buyer_name_shipment'][$key];  
-            // $shipment->buyer_address = $input['buyer_address_shipment'][$key];  
-            // $shipment->loading_port_id = $input['loading_port_id'][$key];  
-            // $shipment->discharge_port_id = $input['discharge_port_id'][$key];  
-            // $shipment->final_destination_id = $input['final_destination_id'][$key];  
-            // $shipment->destination_country_id = $input['destination_country_id'][$key];
+            $shipment->container_size_twenty = $input['container_size_twenty'][$key];
+            $shipment->container_size_forty = $input['container_size_forty'][$key];
+            $shipment->quotation_freight_twenty = $input['quotation_freight_twenty'][$key];
+            $shipment->quotation_freight_forty = $input['quotation_freight_forty'][$key];
             $shipment->save();
-            foreach ($input['shipment_code'] as $key => $value) {
+
+            foreach ($input['shipment_code_product'] as $key => $value) {
                 if($value == $shipment->shipment_code){
                     $product = new ContractProducts;
                     $product->contract_id = $contract->id;
                     $product->shipment_id = $shipment->id;
-                    $product->discharge_port = $input['discharge_port'][$key];
+                    
+                    $ports = explode(",",$input['discharge_port'][$key]);
+                        $loding_port_detail = new LodingPortDetails;
+                        $loding_port_detail->contract_id = $contract->id;
+                        $loding_port_detail->shipment_id = $shipment->id;
+                        $loding_port_detail->loading_port_id = $ports[0];
+                        $loding_port_detail->discharge_port_id = $ports[1];
+                        $loding_port_detail->final_destination_id = $ports[2];
+                        $loding_port_detail->destination_country_id = $ports[3];
+                        $loding_port_detail->save();    
+
+                    $product->discharge_port =  $loding_port_detail->id;  
                     $product->product_id = $input['product_id'][$key];
                     $product->package_id = $input['package_id'][$key];
                     $product->specification = $input['specification'][$key];
@@ -115,6 +127,8 @@ class ContractController extends Controller
 
         return redirect('contracts')->with('message','Contract Added Successfully');
     }
+
+
     public function edit( $contract_id )
     {
         $surveyors = Surveyors::where('isActive',1)->get();
@@ -128,8 +142,11 @@ class ContractController extends Controller
         $countries = Countries::where('isActive',1)->get();
         $shipments = Shipments::where('contract_id',$contract_id)->get();
         $contract = Contracts::find($contract_id);
+
         return view('contract.edit',compact('contract','shipments','countries','discharge_ports','final_destinations','ports','surveyors','dollor_exchanges','buyers','delivery_terms','payment_terms'));
     }
+
+
     public function update( Request $request, $contract_id )
     {
         $input = $request->all();
@@ -186,6 +203,8 @@ class ContractController extends Controller
 
         return redirect('contracts')->with('message','Contract Update Successfully.');
     }
+
+
     public function delete( $contract_id )
     {
         $contract = Contracts::find($contract_id);
@@ -193,39 +212,51 @@ class ContractController extends Controller
         $contract->save();
         return redirect('contracts')->with('message','Contract Delete Successfully.');
     }
+
+
     public function data()
     {
         $contracts = Contracts::where('isActive',1)->get();
+
         return Datatables::of($contracts)
-        ->addIndexColumn()
-        ->addColumn('contract_no', function ($contracts) { 
-            // return '<a href="contract/detail/'.$contracts->id.'">'.$contracts->contract_no.'</a>';
-            return $contracts->contract_no;
-        })
-        ->editColumn('contract_date', function ($contracts) { if(empty($contracts->contract_date)) { return '-'; }else { return $contracts->contract_date; } })
-        ->editColumn('ci_no', function ($contracts) { })
-        ->editColumn('destination', function ($contracts) { })
-        ->editColumn('products', function ($contracts) { })
-        ->editColumn('shipment', function ($contracts) { })
-        ->editColumn('do', function ($contracts) { })
-        ->editColumn('rm', function ($contracts) { })
-        ->editColumn('sf', function ($contracts) { })
-        ->editColumn('ci', function ($contracts) { })
-        ->editColumn('buyer_id', function ($contracts) { return $contracts->buyer->name; })
-        ->addColumn('action', function ($contracts) {
-            return '<a href="contract/delete/'.$contracts->id.'" class="btn btn-primary btn-xs delete"><i class="fa fa-trash-o"></i> Delete</a>&nbsp;';
-        })
-        ->make(true);
+            ->addIndexColumn()
+            ->editColumn('contract_date', function ($contracts) { 
+                return (empty($contracts->contract_date)) ? '-' : $contracts->contract_date;
+            })
+            ->editColumn('ci_no', function ($contracts) {
+                // code
+            })
+            ->editColumn('destination', function ($contracts) { })
+            ->editColumn('products', function ($contracts) { })
+            ->editColumn('shipment', function ($contracts) { })
+            ->editColumn('do', function ($contracts) { })
+            ->editColumn('rm', function ($contracts) { })
+            ->editColumn('sf', function ($contracts) { })
+            ->editColumn('ci', function ($contracts) { })
+            ->editColumn('buyer_id', function ($contracts) { return $contracts->buyer->name; })
+            ->addColumn('action', function ($contracts) {
+                return '<a href="contract/delete/'.$contracts->id.'" class="btn btn-primary btn-xs delete"><i class="fa fa-trash-o"></i></a>&nbsp;';
+            })
+            ->addColumn('contract_no', function ($contracts) { 
+                return '<a href="contract/detail/'.$contracts->id.'">'.$contracts->contract_no.'</a>';
+            })
+            ->rawColumns(['contract_no', 'action'])
+            ->make(true);
     }
+
+
     public function ajaxgetbuyerdetails(Request $request)
     {
         $input = $request->all();
         return $buyer = BuyerDetails::find($input['buyer_id']);
     }
+
+
     public function detail( $contract_id )
     {
         $contract = Contracts::where('id',$contract_id )->with('shipments')->first();
         $shipments = Shipments::where('contract_id',$contract_id )->with('contract')->get();
+
         return view('contract.detail',compact('contract','shipments'));
     }
 }

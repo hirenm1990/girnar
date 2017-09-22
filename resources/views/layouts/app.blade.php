@@ -8,104 +8,105 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/datepicker.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/semantic.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
-    <!-- <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"> -->
+    <link href='//fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'ABeeZee';
+        }
+        body {
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-
-<div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ URL::to('/') }}">{{ config('app.name', 'Laravel') }}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        @guest
+        <ul class="navbar-nav mr-auto">
+          <!-- <li><a href="{{ route('register') }}">Register</a></li> -->
+        </ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-item active">
+                <a class="nav-link btn btn-primary" href="{{ route('login') }}">Login<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        @else
+        <ul class="navbar-nav mr-auto"></ul>
+        <ul class="nav justify-content-end">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ URL::to('/') }}/contracts">Contract<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Data
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="{{ URL::to('/') }}/companys"> Company</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/banks"> Bank</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/buyers"> Buyer's</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/countries"> Countries</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/deliveryterms"> Delivery Terms</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/paymentterms"> Payment Terms</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/dischargeports"> Discharge Ports</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/finaldestinations"> Final Destinations</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/packages"> Packages</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/products"> Products</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/ports"> Ports</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/forwarders"> Forwarders</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/dollorexchanges"> Dollor Exchanges</a>
+                <a class="dropdown-item" href="{{ URL::to('/') }}/surveyors"> Surveyors</a>
+            </div>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ Auth::user()->name }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                    Logout
                 </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </div>
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    &nbsp;
-                </ul>
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @guest
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <!-- <li><a href="{{ route('register') }}">Register</a></li> -->
-                    @else
-                        <li><a href="{{ URL::to('/') }}/contracts"> Contracts</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Data<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ URL::to('/') }}/companys"> Company</a></li>
-                                <li><a href="{{ URL::to('/') }}/banks"> Bank</a></li>
-                                <li><a href="{{ URL::to('/') }}/buyers"> Buyer's</a></li>
-                                <li><a href="{{ URL::to('/') }}/countries"> Countries</a></li>
-                                <li><a href="{{ URL::to('/') }}/deliveryterms"> Delivery Terms</a></li>
-                                <li><a href="{{ URL::to('/') }}/paymentterms"> Payment Terms</a></li>
-                                <li><a href="{{ URL::to('/') }}/dischargeports"> Discharge Ports</a></li>
-                                <li><a href="{{ URL::to('/') }}/finaldestinations"> Final Destinations</a></li>
-                                <li><a href="{{ URL::to('/') }}/packages"> Packages</a></li>
-                                <li><a href="{{ URL::to('/') }}/products"> Products</a></li>
-                                <li><a href="{{ URL::to('/') }}/ports"> Ports</a></li>
-                                <li><a href="{{ URL::to('/') }}/forwarders"> Forwarders</a></li>
-                                <li><a href="{{ URL::to('/') }}/dollorexchanges"> Dollor Exchanges</a></li>
-                                <li><a href="{{ URL::to('/') }}/surveyors"> Surveyors</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
-        </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        @endguest
+      </div>
     </nav>
     @yield('content')
-</div>
+
     <!-- Scripts -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/dropzone.js') }}"></script>
-    <script src="{{ asset('js/tether.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('js/tether.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatable/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('plugins/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('js/datepicker.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/datepicker.min.js') }}"></script> -->
     @yield('jquery')
 </body>
 </html>

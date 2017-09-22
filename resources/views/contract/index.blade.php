@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- <div class="container"> -->
+<div class="container-fluid">
     <!-- <div class="row"> -->
         <!-- <div class="col-md-8 col-md-offset-2"> -->
-            <div class="panel panel-default">
-                <div class="panel-heading"><b>Company Details</b>
-                <a href="{{ URL::to('/') }}/contract/create" class="btn btn-primary btn-xs pull-right"><i class=""></i> Add</a>
+            <div class="card">
+                <div class="card-header"><b>Contract Details</b>
+                <a href="{{ URL::to('/') }}/contract/create" class="btn btn-primary btn-sm float-right"><i class=""></i> Add</a>
                 </div>
 
-                <div class="panel-body">
+                <div class="card-body">
                 @if (Session()->has('message')) 
                   <div class="alert alert-success msg" role="alert">
                     {{ Session()->get('message') }}
@@ -46,7 +46,7 @@
             </div>
         <!-- </div> -->
     <!-- </div> -->
-<!-- </div> -->
+</div>
 @endsection
 
 @section('jquery')

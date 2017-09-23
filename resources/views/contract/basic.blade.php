@@ -118,7 +118,7 @@
 	        
 	   </div>
 	</div>
-		<div class="card-heading" align="right"><button class="btn btn-primary"><i class=""></i> Save</button></div>
+		<div class="card-heading" align="right"><button class="btn btn-primary"><i class=""></i> Update</button></div>
 	</form>
 </div>
 

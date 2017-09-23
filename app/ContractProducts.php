@@ -8,4 +8,9 @@ class ContractProducts extends Model
 {
     protected $table = 'contract_products';
     protected $primaryKey = 'id';
+
+    public function Lodingportdetail() 
+    {
+        return $this->hasOne('App\LodingPortDetails', 'id', 'discharge_port');
+    }
 }

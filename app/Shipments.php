@@ -11,6 +11,6 @@ class Shipments extends Model
 
     public function contract()
     {
-        return $this->hasOne('App\Contracts','id','contract_id'); //hasMany
+        return $this->hasOne('App\Contracts','id','contract_id');
     }
 }

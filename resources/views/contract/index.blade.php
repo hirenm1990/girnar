@@ -24,7 +24,7 @@
                         </ul>
                     </div>
                 @endif
-                <table id="contracts" class="table table-bordered">
+                <table id="shipment" class="table table-bordered">
                     <thead>
                         <th>Sr No.</th>
                         <th>Contract No</th>
@@ -52,7 +52,7 @@
 @section('jquery')
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#contracts').DataTable({
+    $('#shipment').DataTable({
       "processing": true,
       "serverSide": true,
       "lengthMenu": [10,25,50,100],
@@ -70,7 +70,7 @@ $(document).ready(function() {
           {data: 'rm'},
           {data: 'sf'},
           {data: 'ci'},
-          {data: 'dollor_exchange_rate'},
+          {data: 'contract.dollor_exchange_rate'},
           {data: 'action'},
       ]
   });

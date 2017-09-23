@@ -216,29 +216,43 @@ class ContractController extends Controller
 
     public function data()
     {
-        $contracts = Contracts::where('isActive',1)->get();
+        $shipment = Shipments::where('isActive',1)->with('contract')->orderBy('created_at','asc')->get();
 
-        return Datatables::of($contracts)
+        return Datatables::of($shipment)
             ->addIndexColumn()
-            ->editColumn('contract_date', function ($contracts) { 
-                return (empty($contracts->contract_date)) ? '-' : $contracts->contract_date;
+            ->editColumn('contract_date', function ($shipment) {
+                return (empty($shipment->contract->contract_date)) ? '-' : $shipment->contract->contract_date;
             })
-            ->editColumn('ci_no', function ($contracts) {
+            ->editColumn('ci_no', function ($shipment) {
                 // code
             })
-            ->editColumn('destination', function ($contracts) { })
-            ->editColumn('products', function ($contracts) { })
-            ->editColumn('shipment', function ($contracts) { })
-            ->editColumn('do', function ($contracts) { })
-            ->editColumn('rm', function ($contracts) { })
-            ->editColumn('sf', function ($contracts) { })
-            ->editColumn('ci', function ($contracts) { })
-            ->editColumn('buyer_id', function ($contracts) { return $contracts->buyer->name; })
-            ->addColumn('action', function ($contracts) {
-                return '<a href="contract/delete/'.$contracts->id.'" class="btn btn-primary btn-xs delete"><i class="fa fa-trash-o"></i></a>&nbsp;';
+            ->editColumn('destination', function ($shipment) { 
+                // code
             })
-            ->addColumn('contract_no', function ($contracts) { 
-                return '<a href="contract/detail/'.$contracts->id.'">'.$contracts->contract_no.'</a>';
+            ->editColumn('products', function ($shipment) { 
+                // code
+            })
+            ->editColumn('shipment', function ($shipment) { 
+                // code
+            })
+            ->editColumn('do', function ($shipment) { 
+                // code
+            })
+            ->editColumn('rm', function ($shipment) { 
+                // code
+            })
+            ->editColumn('sf', function ($shipment) { 
+                // code
+            })
+            ->editColumn('ci', function ($shipment) { 
+                // code
+            })
+            ->editColumn('buyer_id', function ($shipment) { return $shipment->contract->buyer->name; })
+            ->addColumn('action', function ($shipment) {
+                return '<a href="contract/delete/'.$shipment->id.'" class="btn btn-primary btn-xs delete"><i class="fa fa-trash-o"></i></a>&nbsp;';
+            })
+            ->addColumn('contract_no', function ($shipment) { 
+                return '<a href="contract/detail/'.$shipment->id.'">'.$shipment->contract->contract_no.'-'.$shipment->shipment_code.'</a>';
             })
             ->rawColumns(['contract_no', 'action'])
             ->make(true);
@@ -248,15 +262,16 @@ class ContractController extends Controller
     public function ajaxgetbuyerdetails(Request $request)
     {
         $input = $request->all();
+
         return $buyer = BuyerDetails::find($input['buyer_id']);
     }
 
 
-    public function detail( $contract_id )
+    public function detail( $shipment_id )
     {
-        $contract = Contracts::where('id',$contract_id )->with('shipments')->first();
-        $shipments = Shipments::where('contract_id',$contract_id )->with('contract')->get();
+        $shipment = Shipments::find( $shipment_id );
+        $contract_ships = Contracts::where('id', $shipment->contract->id )->with('shipments')->get();
 
-        return view('contract.detail',compact('contract','shipments'));
+        return view('contract.detail',compact('shipment_id','contract_ships','shipment'));
     }
 }

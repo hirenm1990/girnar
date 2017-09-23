@@ -15,7 +15,7 @@ class Contracts extends Model
     }
     public function shipments()
     {
-        return $this->belongsTo('App\Shipments', 'contract_id', 'id');
+        return $this->hasMany('App\Shipments', 'contract_id', 'id');
     }
     
 }

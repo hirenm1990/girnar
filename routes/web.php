@@ -27,9 +27,23 @@ Route::post('contract/create', 'ContractController@store');
 Route::get('contract/edit/{contract_id}', 'ContractController@edit');
 Route::post('contract/edit/{contract_id}', 'ContractController@update');
 Route::get('contract/delete/{contract_id}', 'ContractController@delete');
-Route::get('contract/detail/{contract_id}', 'ContractController@detail');
+Route::get('contract/detail/{shipment_id}', 'ContractController@detail');
 Route::get('contract/data', 'ContractController@data');
 Route::get('contract/ajaxgetbuyerdetails', 'ContractController@ajaxgetbuyerdetails');
+
+// load tabs contract
+
+Route::get('contract/basic/{shipment_id}', 'Contracts\BasicController@edit');
+Route::post('contract/basic', 'Contracts\BasicController@update');
+Route::get('contract/products/{shipment_id}', 'Contracts\ProductController@edit');
+Route::post('contract/products', 'Contracts\ProductController@update');
+Route::get('contract/deliveryorder', 'Contracts\BasicController@edit');
+Route::get('contract/rawmaterial', 'Contracts\BasicController@edit');
+Route::get('contract/stuffing', 'Contracts\BasicController@edit');
+Route::get('contract/comminvoice', 'Contracts\BasicController@edit');
+Route::get('contract/vgm', 'Contracts\BasicController@edit');
+Route::get('contract/prints', 'Contracts\BasicController@edit');
+Route::get('contract/uploaddocs', 'Contracts\BasicController@edit');
 
 // Shipment 
 

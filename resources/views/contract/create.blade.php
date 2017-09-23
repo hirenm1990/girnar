@@ -202,8 +202,8 @@
         </div>
         <hr>
         <div class="shipment_detail">
-        <div class="card-body remove">
-            <div class="form-group row">
+        <div class="card-body">
+            <div class="form-group row shipment_detail_group">
             <div class="col-md-4">
                 <div class="form-group row">
                     <label class="col-sm-4 form-control-label">Shipment Code</label>
@@ -378,9 +378,10 @@ $(document).ready(function() {
     });
 
     $(document).on('click','.add_more_shipment',function(){
-        // var html = $('.shipment_detail').html();
-        $('.shipment_detail').append('<div class="card-body remove"><div class="form-group row"><div class="col-md-4"><div class="form-group row"><label class="col-sm-4 form-control-label">Shipment Code</label><div class="col-sm-8"><section class="form-control select2" id="shipment-code" name="shipment_code[]"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></section></div></div><div class="form-group row"><label class="col-sm-4 form-control-label">Shipment</label><div class="col-sm-8"><input type="text" class="form-control" name="shipment[]" required></div></div><div class="form-group row"><label class="col-sm-4 form-control-label">Container Size</label><div class="col-sm-4"><input type="text" class="form-control " name="container_size_twenty[]" placeholder="20"></div><div class="col-sm-4"><input type="text" class="form-control " name="container_size_forty[]" placeholder="40"></div></div></div><div class="col-md-4"><div class="form-group row"><label class="col-sm-4 form-control-label">Quotation Freight</label><div class="col-sm-4"><input type="text" class="form-control " name="quotation_freight_twenty[]" placeholder="20"></div><div class="col-sm-4"><input type="text" class="form-control " name="quotation_freight_forty[]" placeholder="40"></div></div><div class="form-group row"><label class="col-sm-4 form-form-control-label">Shipment Notes</label><div class="col-sm-8"><textarea class="form-control" rows="3" name="shipment_notes[]" required></textarea></div></div></div><div class="col-md-4"><div class="card-heading"><button type="button" class="btn btn-danger remove_shipment">Remove Shipment</button></div></div></div></div>');
-        $('.select2').select2();
+        var html = $('.shipment_detail_group').html();
+        $('.shipment_detail .card-body').append("<div class='form-group row shipment_detail_group'>"+html+"</div>");
+        $('.shipment_detail .shipment_detail_group:last-child .select2-container').remove();
+        $('.shipment_detail .shipment_detail_group:last-child .select2').select2();
     });
 
     $(document).on('click','.remove_shipment',function(){
@@ -432,11 +433,11 @@ $(document).ready(function() {
             $.each($('select[name="loading_port_id[]"]'), function(i, v) {
                 options += "<option value='" + $('select[name="loading_port_id[]"]').eq(i).val() +","+ 
                     $('select[name="discharge_port_id[]"]').eq(i).val() +"," + $('select[name="final_destination_id[]"]').eq(i).val() +"," + $('select[name="destination_country_id[]"]').eq(i).val() + "' selected='selected'>" + 
-                    $('select[name="loading_port_id[]"]').eq(i).val() +","+ 
-                    $('select[name="discharge_port_id[]"]').eq(i).val() +"," + 
-                    $('select[name="final_destination_id[]"]').eq(i).val() +"," + 
-                    $('select[name="destination_country_id[]"]').eq(i).val() +"," + 
-                    "</option>";
+                    
+                    $('select[name="loading_port_id[]"]').eq(i).find('option:selected').html() +","+ 
+                    $('select[name="discharge_port_id[]"]').eq(i).find('option:selected').html() +"," + 
+                    $('select[name="final_destination_id[]"]').eq(i).find('option:selected').html() +"," + 
+                    $('select[name="destination_country_id[]"]').eq(i).find('option:selected').html() +"</option>";
                 });
          $('.discharge_port_auto_fillup_opt').html( options );
     }

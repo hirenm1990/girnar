@@ -19,17 +19,69 @@
 					<th>Net Weight (Kgs)</th>
 				</thead>
 				<tbody>
+				<?php $sr = 1; ?>
+				@for( $i=0; $i < $shipment->container_size_twenty; $i++)
+					<tr>
+						<td>{{ $sr }}</td>
+						<td>20 FEET</td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+					</tr>
+					@foreach($contract_products as $product)
 					<tr>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+
+						<td><input type="text" name="" class="form-control" value="{{ $product->product->name }}" readonly></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
 					</tr>
+					@endforeach
+				<?php $sr++; ?>
+				@endfor
+
+				@for( $j=0; $j < $shipment->container_size_forty; $j++)
+					<tr>
+						<td>{{ $sr+$j }}</td>
+						<td>40 FEET</td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+					</tr>
+					@foreach($contract_products as $product)
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+
+						<td><input type="text" name="" class="form-control" value="{{ $product->product->name }}" readonly></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+						<td><input type="text" name="" class="form-control"></td>
+					</tr>
+					@endforeach
+				@endfor
 				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4"></td>
+						<td class="text-right"><b>Total</b></td>
+						<td><input type="text" name="" class="form-control" readonly></td>
+						<td><input type="text" name="" class="form-control" readonly></td>
+						<td><input type="text" name="" class="form-control" readonly></td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</fieldset>

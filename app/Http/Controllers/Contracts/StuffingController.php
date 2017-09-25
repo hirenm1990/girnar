@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Contracts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\StuffingInvoices;
-use App\Shipments;
+
 use App\Contracts;
+use App\ContractProducts;
+use App\Shipments;
+use App\Containers;
+use App\ContainerProducts;
+
 
 class StuffingController extends Controller
 {
@@ -15,6 +20,7 @@ class StuffingController extends Controller
      	$shipment = Shipments::where( 'id', $shipment_id )->first();
     	$contract = Contracts::find( $shipment->contract->id );
     	$stuffing = StuffingInvoices::where('shipment_id',$shipment_id)->first();
+    	$contract_products = ContractProducts::where( 'shipment_id', $shipment_id )->get();
     	
     	if( !$stuffing ) {
     		$stuffing_invoice = new StuffingInvoices;
@@ -22,8 +28,8 @@ class StuffingController extends Controller
     		$stuffing_invoice->contract_id = $contract->id;
     		$stuffing_invoice->save();
     	}
-    	
-    	return view('contract.stuffing',compact('stuffing','shipment_id'));
+
+    	return view('contract.stuffing',compact('contract_products','stuffing','shipment','shipment_id'));
     }
 
 

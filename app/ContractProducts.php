@@ -13,4 +13,9 @@ class ContractProducts extends Model
     {
         return $this->hasOne('App\LodingPortDetails', 'id', 'discharge_port');
     }
+
+    public function product()
+    {
+    	return $this->hasOne('App\Products', 'id', 'product_id');
+    }
 }

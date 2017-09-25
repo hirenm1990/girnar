@@ -1,5 +1,5 @@
 <div class="card-body">
-	<form class="form-horizontal" method="post" action="{{ URL::to('/') }}/contract/basic">
+	<form class="form-horizontal" method="post" action="{{ URL::to('/') }}/contract/products/{{ $shipment->id }}">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="shipment_id" value="{{ $shipment->id }}">
 	  	<input type="hidden" name="contract_id" value="{{ $shipment->contract->id }}">
@@ -43,6 +43,7 @@
             </div>
 
 	    </div>
+
 	    
 	    <div class="col-md-6">
 
@@ -62,9 +63,12 @@
                         <textarea class="form-control" rows="3" name="shipment_notes">{{ $shipment->shipment_notes }}</textarea>
                     </div>
                 </div>
-	        
-	   </div>
-	   	<table class="table table-bordered">
+	   	</div>
+	</div>
+	<hr>
+	<div class="form-group row">
+	    	<h5><b>Product List :</b></h5>
+	   	<table class="table table-bordered products_table">
 	   		<thead>
 	   			<th>Discharge Port</th>
 		   		<th>Product</th>
@@ -72,26 +76,63 @@
 		   		<th>Specification</th>
 		   		<th>Qty.</th>
 		   		<th>Rate</th>
-		   		<th>Amount</th>	
+		   		<th>Amount</th>
+		   		<th></th>
 		   	</thead>
-		   	<tbody>
+		   	<tbody class="product_group">
 		   	@foreach( $contract_products as $product)
-		   		<tr>
+		   		<tr class="product_row">
 		   			<td>
-		   				{{ $product->Lodingportdetail->loding_port->name }}, {{ $product->Lodingportdetail->discharge_port->name}}, {{ $product->Lodingportdetail->final_destination->name }}, {{ $product->Lodingportdetail->destination_country->name }}
+		   				<select name="discharge_port[]" class="form-control select2" required>
+		   					<option value="">Select Any One</option>
+		   					@foreach($loding_port_details as $loding_port)
+		   						<option value="{{ $loding_port->id }}" @if( $loding_port->id == $product->discharge_port ) selected="selected" @endif>{{ $loding_port->loding_port->name }}, {{ $loding_port->discharge_port->name}}, {{ $loding_port->final_destination->name }}, {{ $loding_port->destination_country->name }}</option>
+		   					@endforeach	
+		   				</select>
 		   			</td>
-		   			<td>{{ $product->product_id }}</td>
-		   			<td>{{ $product->package_id }}</td>
-		   			<td>{{ $product->specification }}</td>
-		   			<td>{{ $product->qty }}</td>
-		   			<td>{{ $product->rate }}</td>
-		   			<td>{{ $product->amount }}</td>
+		   			<td>
+		   				<select name="product_id[]" class="form-control select2" required>
+		   					<option value="">Select Any One</option>
+		   					@foreach($products as $p)
+		   						<option value="{{ $p->id }}" @if( $p->id == $product->product_id) selected="selected" @endif>{{ $p->name }}</option>
+		   					@endforeach
+		   				</select>
+		   			</td>
+		   			<td>
+		   				<select name="package_id[]" class="form-control select2" required>
+		   					<option value="">Select Any One</option>
+		   					@foreach($packages as $pc)
+		   					<option value="{{ $pc->id }}" @if( $pc->id == $product->package_id ) selected="selected" @endif>{{ $pc->name }}</option>
+		   					@endforeach
+		   				</select>
+		   			</td>
+		   			<td>
+		   				<input type="text" name="specification[]" class="form-control" value="{{ $product->specification }}">
+		   			</td>
+		   			<td>
+		   				<input type="number" step="Any" name="qty[]" class="form-control" value="{{ $product->qty }}">
+		   			</td>
+		   			<td>
+		   				<input type="number" step="Any" name="rate[]" class="form-control" value="{{ $product->rate }}">
+		   			</td>
+		   			<td>
+		   				<input type="number" name="amount[]" class="form-control" value="{{ $product->amount }}" readonly>
+		   			</td>
+		   			<td>
+		   				<button type="button" class="btn btn-danger btn-sm remove_product"><i class="fa fa-close"></i></button>
+		   			</td>
 		   		</tr>
 		   	@endforeach
+		   		
 		   	</tbody>
+		   	<tfoot>
+		   		<tr>
+		   			<td colspan="8">
+		   				<button type="button" class="btn btn-primary btn-sm add_product"> Add More Product</button>
+		   			</td>
+		   		</tr>
+		   	</tfoot>
 	   	</table>
-	   
-
 	</div>
 		<div class="card-heading" align="right"><button class="btn btn-primary"><i class=""></i> Update</button></div>
 	</form>
@@ -105,5 +146,24 @@ $(document).ready(function() {
         autoclose:true,
         format:'dd-mm-yyyy',
     });
+
+    $(document).on('click','.add_product',function(){
+    	var html = $('.product_row').html();
+    	$('.product_group').append("<tr class='product_row'>"+html+"</tr>" );
+    });
+
+    $(document).on('click','.remove_product', function(){
+    	$(this).closest('tr').remove();	
+    });
+
+    $(document).on("change", ".products_table .product_row input[name='qty[]'], .products_table .product_row input[name='rate[]']", function() {
+        var row = $(this).parents(".product_row");
+        var quantity = row.find("input[name='qty[]']").val();
+        var rate = row.find("input[name='rate[]']").val();
+        var total_amount = quantity * rate;
+        row.find("input[name='amount[]']").val( total_amount.toFixed(2));
+    });
+
+
 });
 </script>

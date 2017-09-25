@@ -1,5 +1,5 @@
 <div class="card-body">
-	<form class="form-horizontal" method="post" action="{{ URL::to('/') }}/contract/basic">
+	<form class="form-horizontal" method="post" action="{{ URL::to('/') }}/contract/basic/{{ $shipment_id }}">
 	  	{{ csrf_field() }}
 	  	<input type="hidden" name="shipment_id" value="{{ $shipment_id }}">
 	  	<input type="hidden" name="contract_id" value="{{ $contract->id }}">
@@ -36,7 +36,7 @@
 	        <div class="form-group row">
 	            <label class="col-sm-3 form-control-label">Purchase Order No.</label>
 	            <div class="col-sm-9">
-	                <input type="text" class="form-control contract_date" name="purchase_order_no" value="{{ $contract->purchase_order_no }}">
+	                <input type="text" class="form-control" name="purchase_order_no" value="{{ $contract->purchase_order_no }}">
 	            </div>
 	        </div>
 
@@ -49,6 +49,7 @@
                             <option value="{{ $buyer->id }}" @if($buyer->id == $contract->buyer_id) selected @endif>{{ $buyer->name }}</option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="buyer_name" class="buyer_name" value="{{ $contract->buyer_name }}">
                 </div>
             </div>
 
@@ -130,6 +131,24 @@ $(document).ready(function() {
         todayHighlight:true,
         autoclose:true,
         format:'dd-mm-yyyy',
+    });
+
+    $(document).on('change','.buyer_id',function(){
+        var buyer_id = $(this).val();
+        $.ajax({
+            url:"{{url('/')}}/contract/ajaxgetbuyerdetails",
+            type:'GET',
+            data:{ 
+                "_token": "{{ csrf_token() }}",
+                "buyer_id":buyer_id,
+            },
+            success: function(data){
+                $('.buyer_name').val( data['name'] );
+                $('.buyer_address').val( data['address'] );
+                // $('.notifier_party').val( data['address'] );
+                // $('.consignee_party').val( data['address'] );
+            },
+        });
     });
 });
 

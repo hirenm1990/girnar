@@ -194,7 +194,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="card-heading" align="left"><button type="button" class="btn btn-warning add-port-row">Add More Port</button></div>
+            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add-port-row">Add More Port</button></div>
         <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
         <div class="col-sm-12">
             <hr>
@@ -262,7 +262,7 @@
             </div>
             </div>
 
-            <div class="card-heading" align="left"><button type="button" class="btn btn-warning add_more_shipment">Add More Shipment</button></div>
+            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add_more_shipment">Add More Shipment</button></div>
 
             <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
         <div class="col-sm-12">
@@ -325,7 +325,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="card-heading" align="left"><button type="button" class="btn btn-warning add-product-row add_more_product">Add More Product</button></div>
+            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add-product-row add_more_product">Add More Product</button></div>
 
             <div class="card-heading" align="right"><button class="btn btn-primary"><i class=""></i> Save</button></div>
         </form>

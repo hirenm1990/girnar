@@ -13,4 +13,9 @@ class Shipments extends Model
     {
         return $this->hasOne('App\Contracts','id','contract_id');
     }
+
+    public function deliveryorder()
+    {
+    	return $this->hasOne('App\DeliveryOrders','shipment_id','id');
+    }
 }

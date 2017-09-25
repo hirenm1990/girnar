@@ -38,25 +38,25 @@
                       <a class="nav-link" data-url="{{ URL::to('/') }}/contract/products/{{ $shipment_id }}" data-toggle="tab" href="#products">Products</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/deliveryorder" data-toggle="tab" href="#delivery-order">Delivery Order</a>
+                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/deliveryorder/{{ $shipment_id }}" data-toggle="tab" href="#delivery-order">Delivery Order</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/rawmaterial" data-toggle="tab" href="#raw-material">Raw Material</a>
+                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/rawmaterial/{{ $shipment_id }}" data-toggle="tab" href="#raw-material">Raw Material</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/stuffing" data-toggle="tab" href="#stuffing">Stuffing</a>
+                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/stuffing/{{ $shipment_id }}" data-toggle="tab" href="#stuffing">Stuffing</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/comminvoice" data-toggle="tab" href="#comm-invoice">Comm. Invoice</a>
+                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/comminvoice/{{ $shipment_id }}" data-toggle="tab" href="#comm-invoice">Comm. Invoice</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="vgm-tab" data-url="{{ URL::to('/') }}/contract/vgm" data-toggle="tab" href="#vgm" role="tab" aria-controls="vgm">VGM</a>
+                      <a class="nav-link" id="vgm-tab" data-url="{{ URL::to('/') }}/contract/vgm/{{ $shipment_id }}" data-toggle="tab" href="#vgm" role="tab" aria-controls="vgm">VGM</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="prints-tab" data-url="{{ URL::to('/') }}/contract/prints" data-toggle="tab" href="#prints" role="tab" aria-controls="prints">Prints</a>
+                      <a class="nav-link" id="prints-tab" data-url="{{ URL::to('/') }}/contract/prints/{{ $shipment_id }}" data-toggle="tab" href="#prints" role="tab" aria-controls="prints">Prints</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="upload-docs-tab" data-url="{{ URL::to('/') }}/contract/uploaddocs" data-toggle="tab" href="#upload-docs" role="tab" aria-controls="upload-docs">Upload Docs</a>
+                      <a class="nav-link" id="upload-docs-tab" data-url="{{ URL::to('/') }}/contract/uploaddocs/{{ $shipment_id }}" data-toggle="tab" href="#upload-docs" role="tab" aria-controls="upload-docs">Upload Docs</a>
                     </li>
                     <!-- <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

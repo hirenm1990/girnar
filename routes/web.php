@@ -24,8 +24,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('contracts', 'ContractController@index');
 Route::get('contract/create', 'ContractController@create');
 Route::post('contract/create', 'ContractController@store');
-Route::get('contract/edit/{contract_id}', 'ContractController@edit');
-Route::post('contract/edit/{contract_id}', 'ContractController@update');
+// Route::get('contract/edit/{contract_id}', 'ContractController@edit');
+// Route::post('contract/edit/{contract_id}', 'ContractController@update');
 Route::get('contract/delete/{contract_id}', 'ContractController@delete');
 Route::get('contract/detail/{shipment_id}', 'ContractController@detail');
 Route::get('contract/data', 'ContractController@data');
@@ -34,16 +34,31 @@ Route::get('contract/ajaxgetbuyerdetails', 'ContractController@ajaxgetbuyerdetai
 // load tabs contract
 
 Route::get('contract/basic/{shipment_id}', 'Contracts\BasicController@edit');
-Route::post('contract/basic', 'Contracts\BasicController@update');
+Route::post('contract/basic/{shipment_id}', 'Contracts\BasicController@update');
+
 Route::get('contract/products/{shipment_id}', 'Contracts\ProductController@edit');
-Route::post('contract/products', 'Contracts\ProductController@update');
-Route::get('contract/deliveryorder', 'Contracts\BasicController@edit');
-Route::get('contract/rawmaterial', 'Contracts\BasicController@edit');
-Route::get('contract/stuffing', 'Contracts\BasicController@edit');
-Route::get('contract/comminvoice', 'Contracts\BasicController@edit');
-Route::get('contract/vgm', 'Contracts\BasicController@edit');
-Route::get('contract/prints', 'Contracts\BasicController@edit');
-Route::get('contract/uploaddocs', 'Contracts\BasicController@edit');
+Route::post('contract/products/{shipment_id}', 'Contracts\ProductController@update');
+
+Route::get('contract/deliveryorder/{shipment_id}', 'Contracts\DeliveryOrderController@edit');
+Route::post('contract/deliveryorder/{shipment_id}', 'Contracts\DeliveryOrderController@update');
+
+Route::get('contract/rawmaterial/{shipment_id}', 'Contracts\RawMaterialController@edit');
+Route::post('contract/rawmaterial/{shipment_id}', 'Contracts\RawMaterialController@update');
+
+Route::get('contract/stuffing/{shipment_id}', 'Contracts\StuffingController@edit');
+Route::post('contract/stuffing/{shipment_id}', 'Contracts\StuffingController@update');
+
+Route::get('contract/comminvoice/{shipment_id}', 'Contracts\CommercialInvoiceController@edit');
+Route::post('contract/comminvoice/{shipment_id}', 'Contracts\CommercialInvoiceController@update');
+
+Route::get('contract/vgm/{shipment_id}', 'Contracts\VGMController@edit');
+Route::post('contract/vgm/{shipment_id}', 'Contracts\VGMController@update');
+
+Route::get('contract/prints/{shipment_id}', 'Contracts\PrintController@edit');
+Route::post('contract/prints/{shipment_id}', 'Contracts\PrintController@update');
+
+Route::get('contract/uploaddocs/{shipment_id}', 'Contracts\UploadDocsController@edit');
+Route::post('contract/uploaddocs/{shipment_id}', 'Contracts\UploadDocsController@update');
 
 // Shipment 
 

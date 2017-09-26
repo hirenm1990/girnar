@@ -11,11 +11,16 @@ class Shipments extends Model
 
     public function contract()
     {
-        return $this->hasOne('App\Contracts','id','contract_id');
+        return $this->hasOne('App\Contracts','id', 'contract_id');
     }
 
     public function deliveryorder()
     {
-    	return $this->hasOne('App\DeliveryOrders','shipment_id','id');
+    	return $this->hasOne('App\DeliveryOrders','shipment_id', 'id');
+    }
+
+    public function stuffing()
+    {
+        return $this->hasOne('App\StuffingInvoices','shipment_id', 'id');
     }
 }

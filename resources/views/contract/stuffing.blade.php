@@ -39,9 +39,9 @@
 							<td><input type="text" name="self_seal_no_tw[]" class="form-control"></td>
 							<td><input type="text" name="line_seal_no_tw[]" class="form-control"></td>
 							
-							<td><input type="text" name="flexi_no_pkgs_tw[]" class="form-control container_flexi_no container_flexi{{ $sr }}"></td>
-							<td><input type="text" name="gross_weight_tw[]" class="form-control container_gross_weight container_gross{{ $sr }}"></td>
-							<td><input type="text" name="net_weight_tw[]" class="form-control container_net_weight container_net{{ $sr }}"></td>
+							<td><input type="text" name="flexi_no_pkgs_tw[]" class="form-control container_flexi_no container_flexi{{ $sr }}" readonly></td>
+							<td><input type="text" name="gross_weight_tw[]" class="form-control container_gross_weight container_gross{{ $sr }}" readonly></td>
+							<td><input type="text" name="net_weight_tw[]" class="form-control container_net_weight container_net{{ $sr }}" readonly></td>
 							
 						</tr>
 						@foreach($contract_products as $product)
@@ -55,9 +55,9 @@
 							<td><input type="hidden" name="product_id_tw[]" value="{{ $product->product->id }}">
 								<input type="text" name="product_name_tw[]" class="form-control" value="{{ $product->product->name }}" readonly></td>
 							
-							<td><input type="text" name="product_flexi_no_pkgs_tw[]" data-container="{{ $sr }}" class="form-control"></td>
-							<td><input type="text" name="product_gross_weight_tw[]" data-container="{{ $sr }}" class="form-control"></td>
-							<td><input type="text" name="product_net_weight_tw[]" data-container="{{ $sr }}" class="form-control"></td>
+							<td><input type="text" name="product_flexi_no_pkgs_tw[]" data-container="{{ $sr }}" class="form-control product_flexi{{ $sr }}"></td>
+							<td><input type="text" name="product_gross_weight_tw[]" data-container="{{ $sr }}" class="form-control product_gross{{ $sr }}"></td>
+							<td><input type="text" name="product_net_weight_tw[]" data-container="{{ $sr }}" class="form-control product_net{{ $sr }}"></td>
 							
 						</tr>
 						@endforeach
@@ -73,9 +73,9 @@
 							<td><input type="text" name="self_seal_no_ft[]" class="form-control"></td>
 							<td><input type="text" name="line_seal_no_ft[]" class="form-control"></td>
 							
-							<td><input type="text" name="flexi_no_pkgs_ft[]" class="form-control container_flexi_no container_flexi{{ $sr }}"></td>
-							<td><input type="text" name="gross_weight_ft[]" class="form-control container_gross_weight container_gross{{ $sr }}"></td>
-							<td><input type="text" name="net_weight_ft[]" class="form-control container_net_weight container_net{{ $sr }}"></td>
+							<td><input type="text" name="flexi_no_pkgs_ft[]" class="form-control container_flexi_no container_flexi{{ $sr + $j }}" readonly></td>
+							<td><input type="text" name="gross_weight_ft[]" class="form-control container_gross_weight container_gross{{ $sr + $j }}" readonly></td>
+							<td><input type="text" name="net_weight_ft[]" class="form-control container_net_weight container_net{{ $sr + $j }}" readonly></td>
 						</tr>
 						@foreach($contract_products as $product)
 						<tr>
@@ -88,9 +88,9 @@
 							<td><input type="hidden" name="product_id_ft[]" value="{{ $product->product->id }}">
 								<input type="text" name="product_name_ft[]" class="form-control" value="{{ $product->product->name }}" readonly></td>
 							
-							<td><input type="text" name="product_flexi_no_pkgs_ft[]" data-container="{{ $sr + $j }}" class="form-control"></td>
-							<td><input type="text" name="product_gross_weight_ft[]" data-container="{{ $sr + $j }}" class="form-control"></td>
-							<td><input type="text" name="product_net_weight_ft[]" data-container="{{ $sr + $j }}" class="form-control"></td>
+							<td><input type="text" name="product_flexi_no_pkgs_ft[]" data-container="{{ $sr + $j }}" class="form-control product_flexi{{ $sr + $j }}"></td>
+							<td><input type="text" name="product_gross_weight_ft[]" data-container="{{ $sr + $j }}" class="form-control product_gross{{ $sr + $j }}"></td>
+							<td><input type="text" name="product_net_weight_ft[]" data-container="{{ $sr + $j }}" class="form-control product_net{{ $sr + $j }}"></td>
 						</tr>
 						@endforeach
 					@endfor
@@ -103,12 +103,7 @@
 							<td><input type="text" name="gross_weight_total" class="form-control gross_weight_total" readonly></td>
 							<td><input type="text" name="net_weight_total" class="form-control net_weight_total" readonly></td>
 						</tr>
-						<tr>
-							<td colspan="7">
-								<button type="button" class="btn btn-success btn-sm">Add Container 20'</button>
-								<button type="button" class="btn btn-success btn-sm">Add Container 40'</button>
-							</td>
-						</tr>
+						
 					</tfoot>
 
 				@else
@@ -160,18 +155,118 @@
 							<td><input type="text" name="gross_weight_total" class="form-control gross_weight_total" readonly></td>
 							<td><input type="text" name="net_weight_total" class="form-control net_weight_total" readonly></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td colspan="7">
 								<button type="button" class="btn btn-success btn-sm">Add Container 20'</button>
 								<button type="button" class="btn btn-success btn-sm">Add Container 40'</button>
 							</td>
-						</tr>
+						</tr> -->
 					</tfoot>
 				@endif
 				
 			</table>
 		</div>
 	</fieldset>
+
+	<fieldset>
+	<div class="form-group row">
+		<button type="button" class="btn btn-success btn-sm show_container_tw">Add Container 20'</button>
+		<input type="hidden" name="AddMoreContainerTW" value="">&nbsp;
+		
+		<button type="button" class="btn btn-success btn-sm show_container_ft">Add Container 40'</button>
+		<input type="hidden" name="AddMoreContainerFT" value="">&nbsp;
+	</div>
+
+		<table class="table table-bordered multiple_container_tw" style="display: none;">
+			<thead>
+				<th>Size</th>
+				<th>Container No.</th>
+				<th>Self Seal No.</th>
+				<th>Line Seal No.</th>
+				<th>No. of Pkgs / Flexi No</th>
+				<th>Gross Weight (Kgs)</th>
+				<th>Net Weight (Kgs)</th>
+				<th></th>
+			</thead>
+			
+			<tbody class="container_group_tw">
+				<tr class="container_row_tw">
+					<td><input type="hidden" name="tw_container_size[]" value="20 feet">20 FEET</td>
+					<td><input type="text" name="tw_container_no[]" class="form-control"></td>
+					<td><input type="text" name="tw_self_seal_no[]" class="form-control"></td>
+					<td><input type="text" name="tw_line_seal_no[]" class="form-control"></td>
+					<td><input type="text" name="tw_flexi_no_pkgs[]" class="form-control" readonly></td>
+					<td><input type="text" name="tw_gross_weight[]" class="form-control" readonly></td>
+					<td><input type="text" name="tw_net_weight[]" class="form-control" readonly></td>
+					<td><button type="button" class="btn btn-danger btn-sm removeContainer_tw"><i class="fa fa-close"></i></button></td>
+				</tr>
+				@foreach($contract_products as $product)
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><input type="hidden" name="tw_product_id[]" class="form-control" value="{{ $product->product->id }}"><input type="text" name="tw_product_name[]" class="form-control" value="{{ $product->product->name }}" readonly=""></td>
+					<td><input type="text" name="tw_product_flexi_no_pkgs[]" class="form-control"></td>
+					<td><input type="text" name="tw_product_gross_weight[]" class="form-control"></td>
+					<td><input type="text" name="tw_product_net_weight[]" class="form-control"></td>
+					<td></td>
+				</tr>
+				@endforeach
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="9"><button type="button" class="btn btn-success btn-sm add_container_tw"><i class="fa fa-plus"></i> Add More</button></td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<table class="table table-bordered multiple_container_ft" style="display: none;">
+			<thead>
+				<th>Size</th>
+				<th>Container No.</th>
+				<th>Self Seal No.</th>
+				<th>Line Seal No.</th>
+				<th>No. of Pkgs / Flexi No</th>
+				<th>Gross Weight (Kgs)</th>
+				<th>Net Weight (Kgs)</th>
+				<th></th>
+			</thead>
+			<tbody class="container_group_ft">
+				<div>
+				<tr class="container_row_ft">
+					<td><input type="hidden" name="ft_container_size[]" value="40 feet">40 FEET</td>
+					<td><input type="" name="ft_container_no[]" class="form-control"></td>
+					<td><input type="" name="ft_self_seal_no[]" class="form-control"></td>
+					<td><input type="" name="ft_line_seal_no[]" class="form-control"></td>
+					<td><input type="" name="ft_flexi_no_pkgs[]" class="form-control" readonly></td>
+					<td><input type="" name="ft_gross_weight[]" class="form-control" readonly></td>
+					<td><input type="" name="ft_net_weight[]" class="form-control" readonly></td>
+					<td><button type="button" class="btn btn-danger btn-sm removeContainer_ft"><i class="fa fa-close"></i></button></td>
+				</tr>
+				@foreach($contract_products as $product)
+				<tr class="container_row_product_ft">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><input type="hidden" name="ft_product_id[]" class="form-control" value="{{ $product->product->id }}"><input type="text" name="ft_product_name[]" class="form-control" value="{{ $product->product->name }}" readonly=""></td>
+					<td><input type="text" name="ft_product_flexi_no_pkgs[]" class="form-control"></td>
+					<td><input type="text" name="ft_product_gross_weight[]" class="form-control"></td>
+					<td><input type="text" name="ft_product_net_weight[]" class="form-control"></td>
+					<td></td>
+				</tr>
+				@endforeach
+				</div>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="9"><button type="button" class="btn btn-success btn-sm add_container_ft"><i class="fa fa-plus"></i> Add More</button></td>
+				</tr>
+			</tfoot>
+		</table>
+
+	</fieldset>
+
+	<hr>
 
 	<fieldset><legend><h5><b> Sealing & Other Details :</b></h5></legend><br>
 	<div class="form-group row">
@@ -348,23 +443,60 @@ $(document).ready(function() {
         format:'dd-mm-yyyy',
     });
 
-    $(document).on('click','.add_more_invoice', function(){
+
+    $(document).on('click','.show_container_tw', function () {
+    	$('.multiple_container_tw').toggle();
+    	
+    	// if($('.multiple_container_tw').show()) {
+    		$('input[name="AddMoreContainerTW"]').val('1');	
+    	// } else {
+    	// 	$('input[name="AddMoreContainerTW"]').val();	
+    	// }
+    	
+
+    });
+
+    $(document).on('click','.show_container_ft', function () {
+    	$('.multiple_container_ft').toggle();
+    	$('input[name="AddMoreContainerFT"]').val('1');
+    });
+
+    $(document).on('click','.add_container_tw', function () {
+    	var html = $('.container_row_tw').html();
+    	$('.container_group_tw').append( "<tr>" + html + "</tr>" );
+    });
+
+    $(document).on('click','.removeContainer_tw', function () {
+    	$(this).closest('tr').remove();
+    });
+
+    $(document).on('click','.add_container_ft', function () {
+    	var html = $('.container_row_ft').html();
+    	var html2 = $('.container_row_product_ft').html()
+    	$('.container_group_ft').append( "<tr>" +html+ "</tr> <tr>" + html2 + "</tr>" );
+    });
+
+    $(document).on('click','.removeContainer_ft', function () {
+    	$(this).closest('tr').remove();
+    });
+
+    
+    $(document).on('click','.add_more_invoice', function () {
     	var html = $('.multi_invoice_row').html();
     	$('.multi_invoice_group').append("<tr>"+html+"</tr>");
     });
 
-    $(document).on('click','.remove_invoice_row',function(){
+    $(document).on('click','.remove_invoice_row',function () {
     	$(this).closest('tr').remove();
     });
 
-    $(document).on("change", ".multipleInvoiceToggle", function() {
+    $(document).on("change", ".multipleInvoiceToggle", function () {
         if( $(this).prop('checked') ) {
             $('.multipleInvoiceTable').show();
         } else {
             $('.multipleInvoiceTable').hide();
         }
     });
-
 
     function container_calculation() {
 
@@ -397,7 +529,83 @@ $(document).ready(function() {
     
     $(document).on('keyup','input[name="product_flexi_no_pkgs[]"]', function () {
     	
-    	console.log("sadhkjasdhjsakdhksjadhkjsadhakjsd");
+    	// console.log("sadhkjasdhjsakdhksjadhkjsadhakjsd");
+    	var flexi = $(".flexiTankToggle").prop("checked");
+    	if(flexi == true) {
+            var c = $(this).data("container");
+            $(".container_flexi" + c ).val( $(this).val() );
+            return false;
+        }
+
+        var c = $(this).data("container"); 
+        // console.log( c );
+    	var total = 0;
+    	var package_type = "";
+
+    	$.each( $('.product_flexi' + c ), function (i) {
+    		if($(this).val()) {
+                total += parseFloat($(this).val());
+
+                var me = $(this).val();
+                var type = me.split(' ')[1];
+
+                if(package_type == "" && type != "") {
+                    package_type = type;
+                } else if( package_type != type ) {
+                    package_type = "Packages";
+                }
+            }
+    	});
+
+    	if(!package_type) {
+            package_type = "Packages";
+        }
+
+    	$('.container_flexi' + c ).val( total + " " + package_type );
+
+    	container_calculation();
+    });
+
+    $(document).on('keyup','input[name="product_flexi_no_pkgs_tw[]"]', function () {
+    	
+    	var flexi = $(".flexiTankToggle").prop("checked");
+    	if(flexi == true) {
+            var c = $(this).data("container");
+            $(".container_flexi" + c ).val( $(this).val() );
+            return false;
+        }
+
+        var c = $(this).data("container"); 
+        // console.log( c );
+    	var total = 0;
+    	var package_type = "";
+
+    	$.each( $('.product_flexi' + c ), function (i) {
+    		if($(this).val()) {
+                total += parseFloat($(this).val());
+
+                var me = $(this).val();
+                var type = me.split(' ')[1];
+
+                if(package_type == "" && type != "") {
+                    package_type = type;
+                } else if( package_type != type ) {
+                    package_type = "Packages";
+                }
+            }
+    	});
+
+    	if(!package_type) {
+            package_type = "Packages";
+        }
+
+    	$('.container_flexi' + c ).val( total + " " + package_type );
+
+    	container_calculation();
+    });
+
+    $(document).on('keyup','input[name="product_flexi_no_pkgs_ft[]"]', function () {
+    	
     	var flexi = $(".flexiTankToggle").prop("checked");
     	if(flexi == true) {
             var c = $(this).data("container");
@@ -450,7 +658,69 @@ $(document).ready(function() {
 
     });
 
+    $(document).on('keyup','input[name="product_gross_weight_tw[]"]', function () {
+    	
+    	var c = $(this).data("container");
+        var total = 0;
+        $.each( $(".product_gross" + c ), function(i) {
+            if($(this).val()) {
+                total += parseFloat($(this).val());
+            }
+        });
+
+        $(".container_gross" + c ).val( total );
+
+        container_calculation();
+
+    });
+
+    $(document).on('keyup','input[name="product_gross_weight_ft[]"]', function () {
+    	
+    	var c = $(this).data("container");
+        var total = 0;
+        $.each( $(".product_gross" + c ), function(i) {
+            if($(this).val()) {
+                total += parseFloat($(this).val());
+            }
+        });
+
+        $(".container_gross" + c ).val( total );
+
+        container_calculation();
+
+    });
+
     $(document).on('keyup','input[name="product_net_weight[]"]', function () {
+
+    	var c = $(this).data("container");
+    	var total = 0;
+    	$.each( $(".product_net" + c ), function () {
+    		if($(this).val()) {
+    			total += parseFloat($(this).val());
+    		}
+    	});
+
+    	$(".container_net" + c ).val( total );
+
+    	container_calculation();
+    });
+
+    $(document).on('keyup','input[name="product_net_weight_tw[]"]', function () {
+
+    	var c = $(this).data("container");
+    	var total = 0;
+    	$.each( $(".product_net" + c ), function () {
+    		if($(this).val()) {
+    			total += parseFloat($(this).val());
+    		}
+    	});
+
+    	$(".container_net" + c ).val( total );
+
+    	container_calculation();
+    });
+
+    $(document).on('keyup','input[name="product_net_weight_ft[]"]', function () {
 
     	var c = $(this).data("container");
     	var total = 0;

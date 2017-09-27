@@ -147,6 +147,7 @@ class StuffingController extends Controller
                     $container_product->save();
                 }
             }
+            
         } else {
             
             foreach ($input['container_size'] as $key => $value) {

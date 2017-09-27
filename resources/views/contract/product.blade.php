@@ -35,10 +35,12 @@
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Container Size</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="container_size_twenty" value="{{ $shipment->container_size_twenty }}" placeholder="20'">
+                    <input type="hidden" name="container_size_twenty" value="{{ $shipment->container_size_twenty }}">
+                    <input type="text" class="form-control" name="container_size_twenty" value="{{ $shipment->container_size_twenty }}" placeholder="20'" disabled="disabled">
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="container_size_forty" value="{{ $shipment->container_size_forty }}" placeholder="40'">
+                    <input type="hidden" name="container_size_forty" value="{{ $shipment->container_size_forty }}">
+                    <input type="text" class="form-control" name="container_size_forty" value="{{ $shipment->container_size_forty }}" placeholder="40'" disabled="disabled">
                 </div>
             </div>
 

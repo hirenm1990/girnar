@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2017 at 12:59 PM
+-- Generation Time: Sep 27, 2017 at 09:20 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -236,22 +236,31 @@ INSERT INTO `company_details` (`id`, `name`, `address`, `phone`, `phone2`, `weig
 -- --------------------------------------------------------
 
 --
--- Table structure for table `containers`
+-- Table structure for table `containers_details`
 --
 
-CREATE TABLE `containers` (
+CREATE TABLE `containers_details` (
   `id` int(11) NOT NULL,
   `contract_id` int(11) NOT NULL,
   `shipment_id` int(11) NOT NULL,
-  `container_size` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `container_no` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `self_seal_no` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `line_seal_no` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `gross weight` double NOT NULL,
-  `net_weight` double NOT NULL,
+  `container_size` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `container_no` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `self_seal_no` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `line_seal_no` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `flexi_no_pkgs` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `gross_weight` double DEFAULT NULL,
+  `net_weight` double DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `containers_details`
+--
+
+INSERT INTO `containers_details` (`id`, `contract_id`, `shipment_id`, `container_size`, `container_no`, `self_seal_no`, `line_seal_no`, `flexi_no_pkgs`, `gross_weight`, `net_weight`, `created_at`, `updated_at`) VALUES
+(1, 6, 7, '20 feet', '123', '123', '123', '40', 30, 30, '2017-09-26 04:13:05', '2017-09-27 01:25:33'),
+(2, 6, 7, '40 feet', '456', '456', '456', '80', 60, 60, '2017-09-26 04:13:05', '2017-09-27 01:25:33');
 
 -- --------------------------------------------------------
 
@@ -263,16 +272,25 @@ CREATE TABLE `container_products` (
   `id` int(11) NOT NULL,
   `contract_id` int(11) NOT NULL,
   `shipment_id` int(11) NOT NULL,
-  `container_id` int(11) NOT NULL,
-  `shipment_containers_detail_id` int(11) NOT NULL,
+  `containers_detail_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_name` varchar(100) DEFAULT NULL,
-  `gross_weight` double DEFAULT NULL,
-  `net_weight` double DEFAULT NULL,
-  `package_id` int(11) NOT NULL,
+  `product_flexi_no_pkgs` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `product_gross_weight` double DEFAULT NULL,
+  `product_net_weight` double DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `container_products`
+--
+
+INSERT INTO `container_products` (`id`, `contract_id`, `shipment_id`, `containers_detail_id`, `product_id`, `product_name`, `product_flexi_no_pkgs`, `product_gross_weight`, `product_net_weight`, `created_at`, `updated_at`) VALUES
+(1, 6, 7, 1, 7, '12HYDROXY STEARIC ACID', '20', 10, 10, '2017-09-26 04:13:05', '2017-09-27 01:25:33'),
+(2, 6, 7, 1, 14, 'H.C.O FATTY ACID', '20', 20, 20, '2017-09-26 04:13:05', '2017-09-27 01:25:33'),
+(3, 6, 7, 2, 7, '12HYDROXY STEARIC ACID', '40', 20, 20, '2017-09-26 04:13:05', '2017-09-27 01:25:33'),
+(4, 6, 7, 2, 14, 'H.C.O FATTY ACID', '40', 40, 40, '2017-09-26 04:13:05', '2017-09-27 01:25:33');
 
 -- --------------------------------------------------------
 
@@ -324,7 +342,8 @@ INSERT INTO `contracts` (`id`, `contract_no`, `contract_date`, `surveyor_id`, `p
 (3, '3', '2017-09-19', 2, '', 1, 'STAR ASIA (FAR EAST) CO. LTD', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', 2, 2, 60.05, 1, 1, '2017-09-19 04:50:24', '2017-09-19 04:50:24'),
 (4, '4', '2017-09-20', 2, '', 4, 'BJ HONG', 'KAOHSIUNG\r\nTAIWAN', 'KAOHSIUNG\r\nTAIWAN', 'KAOHSIUNG\r\nTAIWAN', 5, 3, 50, 2, 1, '2017-09-19 23:14:54', '2017-09-19 23:14:54'),
 (5, 'test', '2017-09-22', 2, '123', 1, 'STAR ASIA (FAR EAST) CO. LTD', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', 5, 4, 132, 1, 1, '2017-09-22 00:17:02', '2017-09-22 00:17:02'),
-(6, '123', '2017-09-22', 2, '123', 1, 'STAR ASIA (FAR EAST) CO. LTD', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', 2, 2, 60, 1, 1, '2017-09-22 00:54:59', '2017-09-22 00:54:59');
+(6, '123', '2017-09-25', 3, '123', 1, 'STAR ASIA (FAR EAST) CO. LTD', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', 3, 4, 80, 2, 1, '2017-09-22 00:54:59', '2017-09-26 05:15:55'),
+(7, '456', '2017-09-25', 3, '456', 1, 'STAR ASIA (FAR EAST) CO. LTD', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', '972/1 3RD FLOOR, VORASUBIN BUILDING\r\nSOI RANA 9 HOSPITAL,RAMA 9 ROAD, BANG KAPI,\r\nBANG KAPI, HUAI KHWANG,BANGKOK 10320 THAILAND', 5, 4, 65, 1, 1, '2017-09-25 03:39:59', '2017-09-25 03:39:59');
 
 -- --------------------------------------------------------
 
@@ -352,7 +371,10 @@ CREATE TABLE `contract_products` (
 --
 
 INSERT INTO `contract_products` (`id`, `contract_id`, `shipment_id`, `discharge_port`, `product_id`, `package_id`, `specification`, `qty`, `rate`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 6, 7, '1', 2, 2, 'test', 10, 20, 200, '2017-09-22 00:54:59', '2017-09-22 00:54:59');
+(18, 6, 7, '1', 7, 3, 'test', 20, 10, 200, '2017-09-27 01:16:23', '2017-09-27 01:16:23'),
+(19, 6, 7, '1', 14, 2, 'test', 10, 20, 200, '2017-09-27 01:16:23', '2017-09-27 01:16:23'),
+(20, 7, 8, '2', 7, 2, 'test', 10, 500, 5000, '2017-09-27 01:38:14', '2017-09-27 01:38:14'),
+(21, 7, 8, '3', 12, 2, 'test', 10, 500, 5000, '2017-09-27 01:38:15', '2017-09-27 01:38:15');
 
 -- --------------------------------------------------------
 
@@ -392,30 +414,41 @@ CREATE TABLE `delivery_orders` (
   `total_freight` varchar(255) DEFAULT NULL,
   `thc` varchar(255) DEFAULT NULL,
   `blc` varchar(255) DEFAULT NULL,
-  `booking_no` varchar(50) NOT NULL,
-  `booking_date` date NOT NULL,
-  `booking_expiry_date` date NOT NULL,
+  `booking_no` varchar(50) DEFAULT NULL,
+  `booking_date` date DEFAULT NULL,
+  `booking_expiry_date` date DEFAULT NULL,
   `vessel_name` varchar(255) DEFAULT NULL,
   `voyage_no` varchar(255) DEFAULT NULL,
-  `eta_origin` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `etd_origin` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `eta_destination` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `eta_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `eta_origin` date DEFAULT NULL,
+  `etd_origin` date DEFAULT NULL,
+  `eta_destination` date DEFAULT NULL,
+  `eta_date` date DEFAULT NULL,
   `total_transit` varchar(255) DEFAULT NULL,
-  `vgm_cutoff` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `container_gate_open` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `gate_cutoff` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `document_cutoff` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `si_cutoff` timestamp NULL DEFAULT '0000-00-00 00:00:00',
-  `stuffing_from` date NOT NULL DEFAULT '0000-00-00',
-  `stuffing_to` date NOT NULL DEFAULT '0000-00-00',
+  `vgm_cutoff` date DEFAULT NULL,
+  `container_gate_open` date DEFAULT NULL,
+  `gate_cutoff` date DEFAULT NULL,
+  `document_cutoff` date DEFAULT NULL,
+  `si_cutoff` date DEFAULT NULL,
+  `stuffing_from` date DEFAULT NULL,
+  `stuffing_to` date DEFAULT NULL,
   `total_detention_days` varchar(255) DEFAULT NULL,
   `total_demurrage_days` varchar(255) DEFAULT NULL,
-  `change_eta_destination_port` varchar(255) DEFAULT '0000-00-00',
+  `change_eta_destination_port` varchar(255) DEFAULT NULL,
   `change_total_transit_time` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `delivery_orders`
+--
+
+INSERT INTO `delivery_orders` (`id`, `contract_id`, `shipment_id`, `forwarder_id`, `shipment_line`, `freight`, `total_freight`, `thc`, `blc`, `booking_no`, `booking_date`, `booking_expiry_date`, `vessel_name`, `voyage_no`, `eta_origin`, `etd_origin`, `eta_destination`, `eta_date`, `total_transit`, `vgm_cutoff`, `container_gate_open`, `gate_cutoff`, `document_cutoff`, `si_cutoff`, `stuffing_from`, `stuffing_to`, `total_detention_days`, `total_demurrage_days`, `change_eta_destination_port`, `change_total_transit_time`, `created_at`, `updated_at`) VALUES
+(1, 6, 7, 1, 'Shipping Line', 'Freight', '10', 'THC', 'BLC', 'Booking No.', '2017-09-12', '2017-09-25', 'Vessel Name / Voyage No.', NULL, '2017-09-25', '2017-09-25', '2017-09-25', '2017-09-25', 'Total Transit Time', NULL, NULL, NULL, '2017-09-25', '2017-09-25', '2017-09-25', '2017-09-25', 'Total Detention Days', 'Total Demurrage Days', '2017-09-25', 'Change Total Transit Time Of ETA Destination Port', '2017-09-25 01:07:02', '2017-09-25 01:30:40'),
+(2, 6, 7, 2, 'test', 'Freight', '53', 'test', 'test', 'test', '2017-09-12', '2017-09-25', 'test', NULL, '2017-09-25', '2017-09-25', '2017-09-25', '2017-09-25', 'test', NULL, NULL, NULL, '2017-09-25', '2017-09-25', '2017-09-25', '2017-09-25', 'test', 'test', '2017-09-25', 'test', '2017-09-25 01:25:49', '2017-09-25 01:25:49'),
+(3, 6, 7, 2, 'test', 'Freight', '53', 'test', 'test', 'test', '2017-09-12', '2017-09-25', 'test', NULL, '2017-09-25', '2017-09-25', '2017-09-25', '2017-09-25', 'test', NULL, NULL, NULL, '2017-09-25', '2017-09-25', '2017-09-25', '2017-09-25', 'test', 'test', '2017-09-25', 'test', '2017-09-25 01:26:13', '2017-09-25 01:26:13'),
+(4, 6, 7, 1, 'test', 'Freight', '10', 'test', 'test', 'test', '2017-09-12', '2017-09-25', 'test', NULL, '2017-09-25', '2017-09-25', '2017-09-25', '2017-09-25', 'test', NULL, NULL, NULL, '2017-09-25', '2017-09-25', '2017-09-25', '2017-09-25', 'test', 'test', '2017-09-25', 'test', '2017-09-25 01:26:52', '2017-09-25 01:26:52'),
+(5, 7, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-09-25 04:32:43', '2017-09-25 04:32:43');
 
 -- --------------------------------------------------------
 
@@ -679,7 +712,9 @@ CREATE TABLE `loding_port_details` (
 --
 
 INSERT INTO `loding_port_details` (`id`, `contract_id`, `shipment_id`, `loading_port_id`, `discharge_port_id`, `final_destination_id`, `destination_country_id`, `created_at`, `updated_at`) VALUES
-(1, 6, 7, 1, 2, 1, 1, '2017-09-22 00:54:59', '2017-09-22 00:54:59');
+(1, 6, 7, 1, 2, 1, 1, '2017-09-22 00:54:59', '2017-09-22 00:54:59'),
+(2, 7, 8, 1, 2, 1, 1, '2017-09-25 03:39:59', '2017-09-25 03:39:59'),
+(3, 7, 8, 2, 4, 3, 1, '2017-09-25 03:39:59', '2017-09-25 03:39:59');
 
 -- --------------------------------------------------------
 
@@ -894,7 +929,8 @@ CREATE TABLE `shipments` (
 --
 
 INSERT INTO `shipments` (`id`, `contract_id`, `shipment`, `shipment_code`, `shipment_notes`, `container_size_twenty`, `container_size_forty`, `quotation_freight_twenty`, `quotation_freight_forty`, `isActive`, `created_at`, `updated_at`) VALUES
-(7, 6, 'shipment A', 'A', 'test', '20', '10', '10', '20', 1, '2017-09-22 00:54:59', '2017-09-22 00:54:59');
+(7, 6, 'shipment', 'A', 'test', '2', '2', '1', '1', 1, '2017-09-22 00:54:59', '2017-09-27 01:16:23'),
+(8, 7, 'test', 'A', 'test', '2', '2', '2', '2', 1, '2017-09-25 03:39:59', '2017-09-25 05:23:39');
 
 -- --------------------------------------------------------
 
@@ -919,22 +955,30 @@ CREATE TABLE `stuffing_invoice` (
   `id` int(11) NOT NULL,
   `contract_id` int(11) NOT NULL,
   `shipment_id` int(11) NOT NULL,
-  `invoice_no` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `invoice_date` date NOT NULL,
-  `are_no` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `are_date` date NOT NULL,
-  `dbk_rate` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `file_no` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `freight` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `extra_charge_name` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `extra_charge_amount` double NOT NULL,
-  `examining_officer` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `supervision_officer` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `examined` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `container_markings` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `invoice_no` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `invoice_date` date DEFAULT NULL,
+  `are_no` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `are_date` date DEFAULT NULL,
+  `dbk_rate` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `file_no` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `freight` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `extra_charge_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `extra_charge_amount` double DEFAULT NULL,
+  `examining_officer` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `supervision_officer` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `examined` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `container_markings` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `stuffing_invoice`
+--
+
+INSERT INTO `stuffing_invoice` (`id`, `contract_id`, `shipment_id`, `invoice_no`, `invoice_date`, `are_no`, `are_date`, `dbk_rate`, `file_no`, `freight`, `extra_charge_name`, `extra_charge_amount`, `examining_officer`, `supervision_officer`, `examined`, `container_markings`, `created_at`, `updated_at`) VALUES
+(1, 6, 7, 'test', '2017-09-26', '12', '2017-09-26', '12', '12', '0', NULL, NULL, 'test', 'test', 'test', 'test', '2017-09-26 00:36:01', '2017-09-26 00:49:13'),
+(2, 7, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-09-26 04:51:12', '2017-09-26 04:51:12');
 
 -- --------------------------------------------------------
 
@@ -1005,7 +1049,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `first_name`, `last_name`, `username`, `email`, `password`, `isActive`, `created_at`, `updated_at`, `remember_token`) VALUES
-(1, 'Lakhman', NULL, NULL, NULL, 'bhutiyalakhman@gmail.com', '$2y$10$CKAlp5mQY8iu6qRgZ4sY4.nQ0XLT.9AI47gP8iFJ/tHx8S53w7Za.', 1, '2017-09-22 09:22:22', '2017-09-13 04:58:46', 'nxbiLDIOdCPdaAmzHeYpzUqzg6g8jL5lE4mEbq15CuU0k31DHny1SaLfre35');
+(1, 'Lakhman', NULL, NULL, NULL, 'bhutiyalakhman@gmail.com', '$2y$10$CKAlp5mQY8iu6qRgZ4sY4.nQ0XLT.9AI47gP8iFJ/tHx8S53w7Za.', 1, '2017-09-25 05:55:58', '2017-09-13 04:58:46', 'e6nXSAuloSRdrvZbPKEE5MT5yi2FLGVNOcauVQNAWr5YPMixrG1sxtLdbiRL');
 
 -- --------------------------------------------------------
 
@@ -1064,9 +1108,9 @@ ALTER TABLE `company_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `containers`
+-- Indexes for table `containers_details`
 --
-ALTER TABLE `containers`
+ALTER TABLE `containers_details`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1190,6 +1234,12 @@ ALTER TABLE `stocks_products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `stuffing_invoice`
+--
+ALTER TABLE `stuffing_invoice`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `surveyors`
 --
 ALTER TABLE `surveyors`
@@ -1238,15 +1288,15 @@ ALTER TABLE `commercial_invoice_details`
 ALTER TABLE `company_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `containers`
+-- AUTO_INCREMENT for table `containers_details`
 --
-ALTER TABLE `containers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `containers_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `container_products`
 --
 ALTER TABLE `container_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `container_types`
 --
@@ -1256,12 +1306,12 @@ ALTER TABLE `container_types`
 -- AUTO_INCREMENT for table `contracts`
 --
 ALTER TABLE `contracts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `contract_products`
 --
 ALTER TABLE `contract_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -1271,7 +1321,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `delivery_orders`
 --
 ALTER TABLE `delivery_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `delivery_terms`
 --
@@ -1306,7 +1356,7 @@ ALTER TABLE `forwarders`
 -- AUTO_INCREMENT for table `loding_port_details`
 --
 ALTER TABLE `loding_port_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `logs`
 --
@@ -1336,12 +1386,17 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `shipments`
 --
 ALTER TABLE `shipments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `stocks_products`
 --
 ALTER TABLE `stocks_products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `stuffing_invoice`
+--
+ALTER TABLE `stuffing_invoice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `surveyors`
 --

@@ -9,7 +9,7 @@
 		<div class="form-group row">
 			
 			<label>
-                <input type="checkbox" name="flexitank" value="true"> <strong>Use Flexitank No. Instead Of No. Of Packages?</strong>
+                <input type="checkbox" name="flexitank" class="flexiTankToggle" value="true"> <strong>Use Flexitank No. Instead Of No. Of Packages?</strong>
                 <div class="fake"></div>
             </label>
 
@@ -24,7 +24,8 @@
 					<th>Gross Weight (Kgs)</th>
 					<th>Net Weight (Kgs)</th>
 				</thead>
-				@if($container_details->isEmpty())
+				@if( $container_details->isEmpty() )
+					
 					<input type="hidden" name="container_detail_flag" value="0">
 					<tbody>
 					<?php $sr = 1; ?>
@@ -37,9 +38,10 @@
 							<td><input type="text" name="container_no_tw[]" class="form-control"></td>
 							<td><input type="text" name="self_seal_no_tw[]" class="form-control"></td>
 							<td><input type="text" name="line_seal_no_tw[]" class="form-control"></td>
-							<td><input type="text" name="flexi_no_pkgs_tw[]" class="form-control"></td>
-							<td><input type="text" name="gross_weight_tw[]" class="form-control"></td>
-							<td><input type="text" name="net_weight_tw[]" class="form-control"></td>
+							
+							<td><input type="text" name="flexi_no_pkgs_tw[]" class="form-control container_flexi_no container_flexi{{ $sr }}"></td>
+							<td><input type="text" name="gross_weight_tw[]" class="form-control container_gross_weight container_gross{{ $sr }}"></td>
+							<td><input type="text" name="net_weight_tw[]" class="form-control container_net_weight container_net{{ $sr }}"></td>
 							
 						</tr>
 						@foreach($contract_products as $product)
@@ -52,15 +54,15 @@
 
 							<td><input type="hidden" name="product_id_tw[]" value="{{ $product->product->id }}">
 								<input type="text" name="product_name_tw[]" class="form-control" value="{{ $product->product->name }}" readonly></td>
-							<td><input type="text" name="product_flexi_no_pkgs_tw[]" class="form-control"></td>
-							<td><input type="text" name="product_gross_weight_tw[]" class="form-control"></td>
-							<td><input type="text" name="product_net_weight_tw[]" class="form-control"></td>
+							
+							<td><input type="text" name="product_flexi_no_pkgs_tw[]" data-container="{{ $sr }}" class="form-control"></td>
+							<td><input type="text" name="product_gross_weight_tw[]" data-container="{{ $sr }}" class="form-control"></td>
+							<td><input type="text" name="product_net_weight_tw[]" data-container="{{ $sr }}" class="form-control"></td>
 							
 						</tr>
 						@endforeach
 					<?php $sr++; ?>
 					@endfor
-
 
 					@for( $j=0; $j < $shipment->container_size_forty; $j++)
 						<tr>
@@ -70,9 +72,10 @@
 							<td><input type="text" name="container_no_ft[]" class="form-control"></td>
 							<td><input type="text" name="self_seal_no_ft[]" class="form-control"></td>
 							<td><input type="text" name="line_seal_no_ft[]" class="form-control"></td>
-							<td><input type="text" name="flexi_no_pkgs_ft[]" class="form-control"></td>
-							<td><input type="text" name="gross_weight_ft[]" class="form-control"></td>
-							<td><input type="text" name="net_weight_ft[]" class="form-control"></td>
+							
+							<td><input type="text" name="flexi_no_pkgs_ft[]" class="form-control container_flexi_no container_flexi{{ $sr }}"></td>
+							<td><input type="text" name="gross_weight_ft[]" class="form-control container_gross_weight container_gross{{ $sr }}"></td>
+							<td><input type="text" name="net_weight_ft[]" class="form-control container_net_weight container_net{{ $sr }}"></td>
 						</tr>
 						@foreach($contract_products as $product)
 						<tr>
@@ -84,9 +87,10 @@
 
 							<td><input type="hidden" name="product_id_ft[]" value="{{ $product->product->id }}">
 								<input type="text" name="product_name_ft[]" class="form-control" value="{{ $product->product->name }}" readonly></td>
-							<td><input type="text" name="product_flexi_no_pkgs_ft[]" class="form-control"></td>
-							<td><input type="text" name="product_gross_weight_ft[]" class="form-control"></td>
-							<td><input type="text" name="product_net_weight_ft[]" class="form-control"></td>
+							
+							<td><input type="text" name="product_flexi_no_pkgs_ft[]" data-container="{{ $sr + $j }}" class="form-control"></td>
+							<td><input type="text" name="product_gross_weight_ft[]" data-container="{{ $sr + $j }}" class="form-control"></td>
+							<td><input type="text" name="product_net_weight_ft[]" data-container="{{ $sr + $j }}" class="form-control"></td>
 						</tr>
 						@endforeach
 					@endfor
@@ -98,6 +102,12 @@
 							<td><input type="text" name="flexi_no_pkgs_total" class="form-control flexi_no_pkgs_total" readonly></td>
 							<td><input type="text" name="gross_weight_total" class="form-control gross_weight_total" readonly></td>
 							<td><input type="text" name="net_weight_total" class="form-control net_weight_total" readonly></td>
+						</tr>
+						<tr>
+							<td colspan="7">
+								<button type="button" class="btn btn-success btn-sm">Add Container 20'</button>
+								<button type="button" class="btn btn-success btn-sm">Add Container 40'</button>
+							</td>
 						</tr>
 					</tfoot>
 
@@ -114,9 +124,10 @@
 							<td><input type="text" name="container_no[]" class="form-control" value="{{ $container_detail->container_no }}"></td>
 							<td><input type="text" name="self_seal_no[]" class="form-control" value="{{ $container_detail->self_seal_no }}"></td>
 							<td><input type="text" name="line_seal_no[]" class="form-control" value="{{ $container_detail->line_seal_no }}"></td>
-							<td><input type="text" name="flexi_no_pkgs[]" class="form-control" value="{{ $container_detail->flexi_no_pkgs }}" readonly></td> 
-							<td><input type="text" name="gross_weight[]" class="form-control" value="{{ $container_detail->gross_weight }}" readonly></td>
-							<td><input type="text" name="net_weight[]" class="form-control" value="{{ $container_detail->net_weight }}" readonly></td>
+
+							<td><input type="text" name="flexi_no_pkgs[]" class="form-control container_flexi_no container_flexi{{ $sr }}" value="{{ $container_detail->flexi_no_pkgs }}" readonly></td>
+							<td><input type="text" name="gross_weight[]" class="form-control container_gross_weight container_gross{{ $sr }}" value="{{ $container_detail->gross_weight }}" readonly></td>
+							<td><input type="text" name="net_weight[]" class="form-control container_net_weight container_net{{ $sr }}"value="{{ $container_detail->net_weight }}" readonly></td>
 						</tr>
 
 						@foreach($container_products as $container_product)
@@ -130,9 +141,10 @@
 
 								<td><input type="hidden" name="product_id[]" value="{{ $container_product->product_id }}">
 									<input type="text" name="product_name[]" class="form-control" value="{{ $container_product->product_name }}" readonly></td>
-								<td><input type="text" name="product_flexi_no_pkgs[]" class="form-control" value="{{ $container_product->product_flexi_no_pkgs }}"></td> <?php $flexi_no_pkgs += $container_product->product_flexi_no_pkgs; ?>
-								<td><input type="text" name="product_gross_weight[]" class="form-control" value="{{ $container_product->product_gross_weight }}"></td> <?php $gross_weight += $container_product->product_gross_weight; ?>
-								<td><input type="text" name="product_net_weight[]" class="form-control" value="{{ $container_product->product_net_weight }}"></td> <?php $net_weight += $container_product->product_net_weight; ?>
+
+								<td><input type="text" name="product_flexi_no_pkgs[]" data-container="{{ $sr }}" class="form-control product_flexi{{ $sr }}" value="{{ $container_product->product_flexi_no_pkgs }}"></td> <?php $flexi_no_pkgs += $container_product->product_flexi_no_pkgs; ?>
+								<td><input type="text" name="product_gross_weight[]" data-container="{{ $sr }}" class="form-control product_gross{{ $sr }}" value="{{ $container_product->product_gross_weight }}"></td> <?php $gross_weight += $container_product->product_gross_weight; ?>
+								<td><input type="text" name="product_net_weight[]" data-container="{{ $sr }}" class="form-control product_net{{ $sr }}" value="{{ $container_product->product_net_weight }}"></td> <?php $net_weight += $container_product->product_net_weight; ?>
 							</tr>
 							<?php $flexi_no_pkgs_total += $container_product->product_flexi_no_pkgs; ?>
 							@endif
@@ -147,6 +159,12 @@
 							<td><input type="text" name="flexi_no_pkgs_total" class="form-control flexi_no_pkgs_total" value="{{ $flexi_no_pkgs_total }}" readonly></td>
 							<td><input type="text" name="gross_weight_total" class="form-control gross_weight_total" readonly></td>
 							<td><input type="text" name="net_weight_total" class="form-control net_weight_total" readonly></td>
+						</tr>
+						<tr>
+							<td colspan="7">
+								<button type="button" class="btn btn-success btn-sm">Add Container 20'</button>
+								<button type="button" class="btn btn-success btn-sm">Add Container 40'</button>
+							</td>
 						</tr>
 					</tfoot>
 				@endif
@@ -347,25 +365,105 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on(".keyup",'input[name="product_flexi_no_pkgs[]"]', function(){
-    	container_calculation();
-    });
 
     function container_calculation() {
 
-    	$('.flexi_no_pkgs_total').val();
-    	$('.gross_weight_total').val();
-    	$('.net_weight_total').val();
+    	var flexi_no_pkg = 0;
+    	$.each( $('.container_flexi_no'), function ( i ) {
+    		var flexitankReplace = $(this).val().replace(/[^0-9\.]/g, '');
+    		if(flexitankReplace > 0)
+                flexi_no_pkg += parseFloat( flexitankReplace );
+    	});
     	
-    	// var flexi_no_pkg = 0;
-    	// var gross_weight = 0;
-    	// var net_weight = 0;
+    	$('.flexi_no_pkgs_total').val( flexi_no_pkg );
 
-    	// $.each("input[name='product_flexi_no_pkgs[]']", function() {
-    	// 	flexi_no_pkg += $(this).val();
-    	// 	$('.flexi_no_pkgs_total').val( flexi_no_pkg );
-    	// }); 
+
+    	var gross_weight = 0;
+    	$.each( $('.container_gross_weight'), function ( i ) {
+    		if($(this).val() > 0)
+                gross_weight += parseFloat($(this).val());
+    	});
+    	$('.gross_weight_total').val( gross_weight );
+
+
+    	var net_weight = 0;
+    	$.each( $('.container_net_weight'), function ( i ) {
+    		if($(this).val() > 0)
+                net_weight += parseFloat($(this).val());
+    	});
+    	$('.net_weight_total').val( net_weight );
     };
+
+    
+    $(document).on('keyup','input[name="product_flexi_no_pkgs[]"]', function () {
+    	
+    	console.log("sadhkjasdhjsakdhksjadhkjsadhakjsd");
+    	var flexi = $(".flexiTankToggle").prop("checked");
+    	if(flexi == true) {
+            var c = $(this).data("container");
+            $(".container_flexi" + c ).val( $(this).val() );
+            return false;
+        }
+
+        var c = $(this).data("container"); 
+        // console.log( c );
+    	var total = 0;
+    	var package_type = "";
+
+    	$.each( $('.product_flexi' + c ), function (i) {
+    		if($(this).val()) {
+                total += parseFloat($(this).val());
+
+                var me = $(this).val();
+                var type = me.split(' ')[1];
+
+                if(package_type == "" && type != "") {
+                    package_type = type;
+                } else if( package_type != type ) {
+                    package_type = "Packages";
+                }
+            }
+    	});
+
+    	if(!package_type) {
+            package_type = "Packages";
+        }
+
+    	$('.container_flexi' + c ).val( total + " " + package_type );
+
+    	container_calculation();
+    });
+
+    $(document).on('keyup','input[name="product_gross_weight[]"]', function () {
+    	
+    	var c = $(this).data("container");
+        var total = 0;
+        $.each( $(".product_gross" + c ), function(i) {
+            if($(this).val()) {
+                total += parseFloat($(this).val());
+            }
+        });
+
+        $(".container_gross" + c ).val( total );
+
+        container_calculation();
+
+    });
+
+    $(document).on('keyup','input[name="product_net_weight[]"]', function () {
+
+    	var c = $(this).data("container");
+    	var total = 0;
+    	$.each( $(".product_net" + c ), function () {
+    		if($(this).val()) {
+    			total += parseFloat($(this).val());
+    		}
+    	});
+
+    	$(".container_net" + c ).val( total );
+
+    	container_calculation();
+    });
 
     container_calculation();
 

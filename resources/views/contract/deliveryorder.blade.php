@@ -63,28 +63,28 @@
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Booking Date</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="booking_date" value="{{ date('d-m-Y',strtotime( $do->booking_date )) }}">
+                    <input type="text" class="form-control datepicker" name="booking_date" value="{{ ($do->booking_date) ? date('d-m-Y',strtotime( $do->booking_date )) :'' }}">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Booking Expiry Date</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="booking_expiry_date" value="{{ date('d-m-Y',strtotime( $do->booking_expiry_date )) }}">
+                    <input type="text" class="form-control datepicker" name="booking_expiry_date" value="{{ ($do->booking_expiry_date) ? date('d-m-Y',strtotime( $do->booking_expiry_date )) :'' }}">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Document Cutoff</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="document_cutoff" value="{{ date('d-m-Y',strtotime( $do->document_cutoff )) }}">
+                    <input type="text" class="form-control datepicker" name="document_cutoff" value="{{ ($do->document_cutoff) ? date('d-m-Y',strtotime( $do->document_cutoff )) :'' }}">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">SI Cutoff</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="si_cutoff" value="{{ date('d-m-Y',strtotime( $do->si_cutoff )) }}">
+                    <input type="text" class="form-control datepicker" name="si_cutoff" value="{{ ( $do->si_cutoff ) ? date('d-m-Y',strtotime( $do->si_cutoff )) :'' }}">
                 </div>
             </div>
 
@@ -94,28 +94,28 @@
 	    	<div class="form-group row">
                 <label class="col-sm-4 form-control-label">ETA Origin Port</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="eta_origin" value="{{ date('d-m-Y',strtotime( $do->eta_origin )) }}">
+                    <input type="text" class="form-control datepicker" name="eta_origin" value="{{ ($do->eta_origin) ? date('d-m-Y',strtotime( $do->eta_origin )) :'' }}">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">ETD Origin Port</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="etd_origin" value="{{ date('d-m-Y',strtotime( $do->etd_origin )) }}">
+                    <input type="text" class="form-control datepicker" name="etd_origin" value="{{ ($do->etd_origin) ? date('d-m-Y',strtotime( $do->etd_origin )) :'' }}">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">ETA Destination Port</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="eta_destination" value="{{ date('d-m-Y',strtotime( $do->eta_destination )) }}">
+                    <input type="text" class="form-control datepicker" name="eta_destination" value="{{ ($do->eta_destination) ? date('d-m-Y',strtotime( $do->eta_destination )) :'' }}">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">ETA Date</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="eta_date" value="{{ date('d-m-Y',strtotime( $do->eta_date )) }}">
+                    <input type="text" class="form-control datepicker" name="eta_date" value="{{ ($do->eta_date) ? date('d-m-Y',strtotime( $do->eta_date )) :'' }}">
                 </div>
             </div>
 
@@ -150,7 +150,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Change ETA Date Of Destination Port</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="change_eta_destination_port" value="{{ date('d-m-Y',strtotime( $do->change_eta_destination_port )) }}">
+                    <input type="text" class="form-control datepicker" name="change_eta_destination_port" value="{{ ($do->change_eta_destination_port) ? date('d-m-Y',strtotime( $do->change_eta_destination_port )) :'' }}">
                 </div>
             </div>
 
@@ -164,20 +164,20 @@
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Stuffing From Date</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="stuffing_from" value="{{ date('d-m-Y',strtotime( $do->stuffing_from )) }}">
+                    <input type="text" class="form-control datepicker" name="stuffing_from" value="{{ ($do->stuffing_from) ? date('d-m-Y',strtotime( $do->stuffing_from )) :'' }}">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Stuffing To Date</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" name="stuffing_to" value="{{ date('d-m-Y',strtotime( $do->stuffing_to )) }}">
+                    <input type="text" class="form-control datepicker" name="stuffing_to" value="{{ ($do->stuffing_to) ? date('d-m-Y',strtotime( $do->stuffing_to )) :'' }}">
                 </div>
             </div>
 
 	    </div>
 	</div>
-		<div class="card-heading" align="right"><button class="btn btn-primary"><i class=""></i> Update</button></div>
+		<div class="card-heading" align="right"><button class="btn btn-primary"><i class="fa fa-check"></i> Update</button></div>
 	</form>
 <div>
 

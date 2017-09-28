@@ -37,8 +37,7 @@ class StuffingController extends Controller
 
     public function update(Request $request, $shipment_id )
     {
-    	return $input = $request->all();
-        // exit();
+        $input = $request->all();
 
      	$shipment = Shipments::find( $shipment_id );
         
@@ -48,9 +47,9 @@ class StuffingController extends Controller
     	$stuffing_invoice->contract_id = $contract->id;
     	$stuffing_invoice->shipment_id = $shipment_id;
     	$stuffing_invoice->invoice_no = $input['invoice_no'];
-    	$stuffing_invoice->invoice_date = date('Y-m-d',strtotime( $input['invoice_date'] ));
+    	( $input['invoice_date'] !="" ) ? $stuffing_invoice->invoice_date = date('Y-m-d',strtotime( $input['invoice_date'] )) : "";
     	$stuffing_invoice->are_no = $input['are_no'];
-    	$stuffing_invoice->are_date = date('Y-m-d',strtotime( $input['are_date'] ));
+    	($input['are_date'] !="") ? $stuffing_invoice->are_date = date('Y-m-d',strtotime( $input['are_date'] )) :"";
     	$stuffing_invoice->dbk_rate = $input['dbk_rate'];
     	$stuffing_invoice->file_no = $input['file_no'];
     	$stuffing_invoice->freight = $input['freight'];
@@ -193,103 +192,120 @@ class StuffingController extends Controller
 
         }
 
-        if($input['AddMoreContainerFT'] == '1') {
-        // add more container 40' here Code // 
-            $ft_container = 0;
-            foreach ($input['ft_container_size'] as $key => $value) {
-
-                $container_detail = new ContainerDetails;
-                $container_detail->contract_id = $contract->id;
-                $container_detail->shipment_id = $shipment_id;
-                $container_detail->container_size = $input['ft_container_size'][$key];
-                $container_detail->container_no = $input['ft_container_no'][$key];
-                $container_detail->self_seal_no = $input['ft_self_seal_no'][$key];
-                $container_detail->line_seal_no = $input['ft_line_seal_no'][$key];
-                $container_detail->flexi_no_pkgs = $input['ft_flexi_no_pkgs'][$key];
-                $container_detail->gross_weight = $input['ft_gross_weight'][$key];
-                $container_detail->net_weight = $input['ft_net_weight'][$key];
-                $container_detail->save();
-
-                $ft_container++;
-                
-
-                    // ContainerProducts::where('containers_detail_id', $container_detail->id)->delete();
-
-                foreach ($input['ft_product_id'] as $key => $value) {
-                        
-                    // $container_product = ContainerProducts::find( $input['container_product_id'][$key] );
-
-                    // if( $container_detail->id ==  $container_product->containers_detail_id ) {
-                        $container_product = new ContainerProducts;
-                        $container_product->contract_id = $contract->id;
-                        $container_product->shipment_id = $shipment_id;
-                        $container_product->containers_detail_id = $container_detail->id;
-                        $container_product->product_id = $input['ft_product_id'][$key];
-                        $container_product->product_name = $input['ft_product_name'][$key];
-                        $container_product->product_flexi_no_pkgs = $input['ft_product_flexi_no_pkgs'][$key];
-                        $container_product->product_gross_weight = $input['ft_product_gross_weight'][$key];
-                        $container_product->product_net_weight = $input['ft_product_net_weight'][$key];
-                        $container_product->save();
-                    // }
-
-                    // $container_product = new ContainerProducts;
-                    // ContainerProducts::where('id', )->delete();
-                    
-                }
-            }
-            $shipment->container_size_forty = $shipment->container_size_forty + $ft_container;
-            $shipment->save();
-        }
-
-        
-        if($input['AddMoreContainerTW'] == '1') {
-        // add more container 20' here Code // 
-            $tw_container = 0;
-            foreach ($input['tw_container_size'] as $key => $value) {
-
-                $container_detail = new ContainerDetails;
-                $container_detail->contract_id = $contract->id;
-                $container_detail->shipment_id = $shipment_id;
-                $container_detail->container_size = $input['tw_container_size'][$key];
-                $container_detail->container_no = $input['tw_container_no'][$key];
-                $container_detail->self_seal_no = $input['tw_self_seal_no'][$key];
-                $container_detail->line_seal_no = $input['tw_line_seal_no'][$key];
-                $container_detail->flexi_no_pkgs = $input['tw_flexi_no_pkgs'][$key];
-                $container_detail->gross_weight = $input['tw_gross_weight'][$key];
-                $container_detail->net_weight = $input['tw_net_weight'][$key];
-                $container_detail->save();
-
-                $tw_container++;
-                
-
-                    // ContainerProducts::where('containers_detail_id', $container_detail->id)->delete();
-
-                foreach ($input['tw_product_id'] as $key => $value) {
-                        
-                    // $container_product = ContainerProducts::find( $input['container_product_id'][$key] );
-
-                    // if( $container_detail->id ==  $container_product->containers_detail_id ) {
-                        $container_product = new ContainerProducts;
-                        $container_product->contract_id = $contract->id;
-                        $container_product->shipment_id = $shipment_id;
-                        $container_product->containers_detail_id = $container_detail->id;
-                        $container_product->product_id = $input['tw_product_id'][$key];
-                        $container_product->product_name = $input['tw_product_name'][$key];
-                        $container_product->product_flexi_no_pkgs = $input['tw_product_flexi_no_pkgs'][$key];
-                        $container_product->product_gross_weight = $input['tw_product_gross_weight'][$key];
-                        $container_product->product_net_weight = $input['tw_product_net_weight'][$key];
-                        $container_product->save();
-                    // }
-
-                    // $container_product = new ContainerProducts;
-                    // ContainerProducts::where('id', )->delete();
-                    
-                }
-            }
-            $shipment->container_size_twenty = $shipment->container_size_twenty + $tw_container;
-            $shipment->save();
-        }
-
     	return Redirect('contract/detail/'.$shipment_id.'#stuffing')->with('message','Stuffing Update Successfully.');
     }
+
+    public function AddTWContainer( $shipment_id )
+    {
+        $shipment = Shipments::find( $shipment_id );
+        
+        $contract = Contracts::find( $shipment->contract->id );
+
+        $contract_products = ContractProducts::where( 'shipment_id', $shipment_id )->get();
+
+        $container_detail = new ContainerDetails;
+        $container_detail->contract_id = $contract->id;
+        $container_detail->shipment_id = $shipment_id;
+        $container_detail->container_size = "20 feet";
+        // $container_detail->container_no ="";
+        // $container_detail->self_seal_no ="";
+        // $container_detail->line_seal_no ="";
+        // $container_detail->flexi_no_pkgs ="";
+        // $container_detail->gross_weight ="";
+        // $container_detail->net_weight ="";
+        $container_detail->save();
+
+        foreach ($contract_products as $product) {    
+            $container_product = new ContainerProducts;
+            $container_product->contract_id = $contract->id;
+            $container_product->shipment_id = $shipment_id;
+            $container_product->containers_detail_id = $container_detail->id;
+            $container_product->product_id = $product->id;
+            $container_product->product_name = $product->product->name;
+            // $container_product->product_flexi_no_pkgs ="";
+            // $container_product->product_gross_weight ="";
+            // $container_product->product_net_weight ="";
+            $container_product->save();
+        }
+
+        $shipment->container_size_twenty = $shipment->container_size_twenty + 1;
+        $shipment->save();
+
+        return Redirect('contract/detail/'.$shipment_id.'#stuffing')->with('message','Stuffing Container 20'."'".' Added Successfully.');
+    }
+
+    public function AddFWContainer( $shipment_id )
+    {
+        $shipment = Shipments::find( $shipment_id );
+        $contract = Contracts::find( $shipment->contract->id );
+        $contract_products = ContractProducts::where( 'shipment_id', $shipment_id )->get();
+        
+        $container_detail = new ContainerDetails;
+        $container_detail->contract_id = $contract->id;
+        $container_detail->shipment_id = $shipment_id;
+        $container_detail->container_size = "40 feet";
+        // $container_detail->container_no ="";
+        // $container_detail->self_seal_no ="";
+        // $container_detail->line_seal_no ="";
+        // $container_detail->flexi_no_pkgs ="";
+        // $container_detail->gross_weight ="";
+        // $container_detail->net_weight ="";
+        $container_detail->save();
+
+        foreach ($contract_products as $product) {
+            $container_product = new ContainerProducts;
+            $container_product->contract_id = $contract->id;
+            $container_product->shipment_id = $shipment_id;
+            $container_product->containers_detail_id = $container_detail->id;
+            $container_product->product_id = $product->id;
+            $container_product->product_name = $product->product->name;
+            // $container_product->product_flexi_no_pkgs ="";
+            // $container_product->product_gross_weight ="";
+            // $container_product->product_net_weight ="";
+            $container_product->save();
+        }
+
+        $shipment->container_size_forty = $shipment->container_size_forty + 1;
+        $shipment->save();
+
+        return Redirect('contract/detail/'.$shipment_id.'#stuffing')->with('message','Stuffing Container 40'."'".' Added Successfully.');
+    }
+
+    public function stuffingConatainerRemove( $container_detail_id )
+    {
+        ContainerProducts::where('containers_detail_id', $container_detail_id )->delete();
+        $container_detail = ContainerDetails::find( $container_detail_id );
+        $shipment_id = $container_detail->shipment_id;
+        
+        $shipment = Shipments::find( $shipment_id );
+        if( $container_detail->container_size == '20 feet' ) {
+            $shipment->container_size_twenty = $shipment->container_size_twenty - 1;
+            $shipment->save();
+        } else {
+            $shipment->container_size_forty = $shipment->container_size_forty - 1;
+            $shipment->save();
+        }
+
+        $container_detail->delete();
+
+        return Redirect('contract/detail/'.$shipment_id.'#stuffing')->with('message','Stuffing Container Deleted Successfully.');
+    }
+
+    public function ConatainerRemoveByShipmentTw( $shipment_id )
+    {
+        $shipment = Shipments::find( $shipment_id );
+        $shipment->container_size_twenty = $shipment->container_size_twenty - 1;
+        $shipment->save();
+
+        return Redirect('contract/detail/'.$shipment_id.'#stuffing')->with('message','Stuffing Container Deleted Successfully.');
+    }
+
+    public function ConatainerRemoveByShipmentFt( $shipment_id )
+    {
+        $shipment = Shipments::find( $shipment_id );
+        $shipment->container_size_forty = $shipment->container_size_forty - 1;
+        $shipment->save();
+
+        return Redirect('contract/detail/'.$shipment_id.'#stuffing')->with('message','Stuffing Container Deleted Successfully.');
+    }   
 }

@@ -28,7 +28,7 @@
 <body>
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light"> <!-- fixed-top -->
-      <a class="navbar-brand" href="{{ URL::to('/') }}">{{ config('app.name', 'Laravel') }}</a>
+      <a class="navbar-brand" href="{{ URL::to('/') }}"><i class="fa fa-home"></i> {{ config('app.name', 'Laravel') }}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -47,10 +47,10 @@
         <ul class="navbar-nav mr-auto"></ul>
         <ul class="nav justify-content-end">
           <li class="nav-item active">
-            <a class="nav-link" href="{{ URL::to('/') }}/contracts">Contract<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{ URL::to('/') }}/contracts"><i class="fa fa-list-alt"></i> Contract<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"> Data </a>
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"><i class="fa fa-database"></i> Data </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="{{ URL::to('/') }}/companys"> Company</a>
                 <a class="dropdown-item" href="{{ URL::to('/') }}/banks"> Bank</a>
@@ -69,7 +69,7 @@
             </div>
             </li>
             <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"><i class="fa fa-user"></i>
               {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

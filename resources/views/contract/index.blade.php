@@ -6,7 +6,7 @@
         <!-- <div class="col-md-8 col-md-offset-2"> -->
             <div class="card">
                 <div class="card-header"><b>Contract Details</b>
-                <a href="{{ URL::to('/') }}/contract/create" class="btn btn-primary btn-sm float-right"><i class=""></i> Add</a>
+                <a href="{{ URL::to('/') }}/contract/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i> Add Contract</a>
                 </div>
 
                 <div class="card-body">

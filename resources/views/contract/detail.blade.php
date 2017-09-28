@@ -32,19 +32,19 @@
                 <div id="tabs">
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link" id="basic_tab" data-url="{{ URL::to('/') }}/contract/basic/{{ $shipment_id }}" data-toggle="tab" href="#basic">Basic</a>
+                      <a class="nav-link" id="basic_tab" data-url="{{ URL::to('/') }}/contract/basic/{{ $shipment_id }}" data-toggle="tab" href="#basic"><i class="fa fa-pencil-square-o"></i> Basic</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/products/{{ $shipment_id }}" data-toggle="tab" href="#products">Products</a>
+                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/products/{{ $shipment_id }}" data-toggle="tab" href="#products"><i class="fa fa-cubes"></i> Products</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/deliveryorder/{{ $shipment_id }}" data-toggle="tab" href="#delivery-order">Delivery Order</a>
+                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/deliveryorder/{{ $shipment_id }}" data-toggle="tab" href="#delivery-order"><i class="fa fa-file-text-o"></i> Delivery Order</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/rawmaterial/{{ $shipment_id }}" data-toggle="tab" href="#raw-material">Raw Material</a>
+                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/rawmaterial/{{ $shipment_id }}" data-toggle="tab" href="#raw-material"><i class="fa fa-building-o"></i> Raw Material</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/stuffing/{{ $shipment_id }}" data-toggle="tab" href="#stuffing">Stuffing</a>
+                      <a class="nav-link" data-url="{{ URL::to('/') }}/contract/stuffing/{{ $shipment_id }}" data-toggle="tab" href="#stuffing"><i class="fa fa-archive"></i> Stuffing</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" data-url="{{ URL::to('/') }}/contract/comminvoice/{{ $shipment_id }}" data-toggle="tab" href="#comm-invoice">Comm. Invoice</a>
@@ -125,7 +125,12 @@ $(document).ready(function() {
     }
   });
 
-  $('#basic_tab').click();
+
+  var hash = "#" + window.location.hash.substr(1);
+  if(hash == "#") {
+    hash = "#basic";
+  }
+  $('a[href="'+hash+'"]').click();
   
 });
 

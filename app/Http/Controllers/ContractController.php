@@ -19,6 +19,8 @@ use App\Products;
 use App\Packages;
 use App\ContractProducts;
 use App\LodingPortDetails;
+use App\BankDetails;
+use App\CompanyDetails;
 
 
 class ContractController extends Controller
@@ -42,8 +44,10 @@ class ContractController extends Controller
         $ports = Ports::where('isActive',1)->get();
         $products = Products::where('isActive',1)->get();
         $packages = Packages::where('isActive',1)->get();
+        $banks = BankDetails::where('isActive',1)->get();
+        $companys = CompanyDetails::where('isActive',1)->get();
 
-        return view('contract.create',compact('countries','packages','products','final_destinations','discharge_ports','ports','surveyors','dollor_exchanges','buyers','delivery_terms','payment_terms'));
+        return view('contract.create',compact('companys','banks','countries','packages','products','final_destinations','discharge_ports','ports','surveyors','dollor_exchanges','buyers','delivery_terms','payment_terms'));
     }
 
 
@@ -83,6 +87,8 @@ class ContractController extends Controller
         $contract->payment_terms_id = $input['payment_terms_id'];
         $contract->dollor_exchange_rate = $input['dollor_exchange_rate'];
         $contract->dollor_exchange_id = $input['dollor_exchange_id'];
+        $contract->bank_id = $input['bank_id'];
+        $contract->company_id = $input['company_id'];
         $contract->save();
 
         foreach($input['shipment'] as $key => $value){
@@ -208,9 +214,9 @@ class ContractController extends Controller
     public function delete( $contract_id )
     {
         $contract = Contracts::find($contract_id);
-        $contract->isActive = 0;
-        $contract->save();
-        return redirect('contracts')->with('message','Contract Delete Successfully.');
+        // $contract->isActive = 0;
+        // $contract->save();
+        return redirect('contracts')->with('message','Contract Duplicate Successfully.');
     }
 
 
@@ -249,7 +255,7 @@ class ContractController extends Controller
             })
             ->editColumn('buyer_id', function ($shipment) { return $shipment->contract->buyer->name; })
             ->addColumn('action', function ($shipment) {
-                return '<a href="contract/delete/'.$shipment->id.'" class="btn btn-primary btn-xs delete"><i class="fa fa-trash-o"></i></a>&nbsp;';
+                return '<a href="contract/delete/'.$shipment->id.'" class="btn btn-primary btn-sm delete"><i class="fa fa-external-link"></i></a>&nbsp;';
             })
             ->addColumn('contract_no', function ($shipment) { 
                 return '<a href="contract/detail/'.$shipment->id.'">'.$shipment->contract->contract_no.'-'.$shipment->shipment_code.'</a>';

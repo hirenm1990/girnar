@@ -47,6 +47,11 @@ Route::post('contract/rawmaterial/{shipment_id}', 'Contracts\RawMaterialControll
 
 Route::get('contract/stuffing/{shipment_id}', 'Contracts\StuffingController@edit');
 Route::post('contract/stuffing/{shipment_id}', 'Contracts\StuffingController@update');
+Route::get('contract/stuffingAddTWContainer/{shipment_id}', 'Contracts\StuffingController@AddTWContainer');
+Route::get('contract/stuffingAddFTContainer/{shipment_id}', 'Contracts\StuffingController@AddFWContainer');
+Route::get('contract/stuffingConatainerRemove/{container_detail_id}', 'Contracts\StuffingController@stuffingConatainerRemove');
+Route::get('contract/ConatainerRemoveByShipmentTw/{shipment_id}', 'Contracts\StuffingController@ConatainerRemoveByShipmentTw');
+Route::get('contract/ConatainerRemoveByShipmentFt/{shipment_id}', 'Contracts\StuffingController@ConatainerRemoveByShipmentFt');
 
 Route::get('contract/comminvoice/{shipment_id}', 'Contracts\CommercialInvoiceController@edit');
 Route::post('contract/comminvoice/{shipment_id}', 'Contracts\CommercialInvoiceController@update');

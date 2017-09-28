@@ -119,7 +119,7 @@
 	        
 	   </div>
 	</div>
-		<div class="card-heading" align="right"><button class="btn btn-primary"><i class=""></i> Update</button></div>
+		<div class="card-heading" align="right"><button class="btn btn-primary"><i class="fa fa-check"></i> Update</button></div>
 	</form>
 </div>
 

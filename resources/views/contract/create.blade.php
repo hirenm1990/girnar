@@ -53,7 +53,7 @@
                     <input type="text" class="form-control" name="purchase_order_no">
                 </div>
                 <div class="col-sm-4">
-                    <input type="file" name="upload_doc">
+                    <input type="file" name="upload_doc" class="form-control btn btn-info btn-sm">
                 </div>
             </div>
             <div class="form-group row">
@@ -140,6 +140,31 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Company</label>
+                <div class="col-sm-9">
+                    <select class="form-control select2" name="company_id" placeholder="">
+                        <option value="">Select Any One</option>
+                        @foreach($companys as $company)
+                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Bank</label>
+                <div class="col-sm-9">
+                    <select class="form-control select2" name="bank_id" placeholder="">
+                        <option value="">Select Any One</option>
+                        @foreach($banks as $bank)
+                            <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
         </div>
         </div>
         <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -194,7 +219,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add-port-row">Add More Port</button></div>
+            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add-port-row"><i class="fa fa-plus"></i> Add More Port</button></div>
         <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
         <div class="col-sm-12">
             <hr>
@@ -262,7 +287,7 @@
             </div>
             </div>
 
-            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add_more_shipment">Add More Shipment</button></div>
+            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add_more_shipment"><i class="fa fa-plus"></i> Add More Shipment</button></div>
 
             <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
         <div class="col-sm-12">
@@ -325,9 +350,9 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add-product-row add_more_product">Add More Product</button></div>
+            <div class="card-heading" align="left"><button type="button" class="btn btn-success btn-sm add-product-row add_more_product"><i class="fa fa-plus"></i> Add More Product</button></div>
 
-            <div class="card-heading" align="right"><button class="btn btn-primary"><i class=""></i> Save</button></div>
+            <div class="card-heading" align="right"><button class="btn btn-primary"><i class="fa fa-check"></i> Save Contract</button></div>
         </form>
         </div>
     </div>
@@ -389,7 +414,7 @@ $(document).ready(function() {
     });
 
     $('.add_more_product').on('click',function(){
-        $('.product_row').append('<tr class="product-cal"><td><select class="form-control select2" id="shipment-code" name="shipment_code_product[]"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></select></td><td><select class="form-control select2 discharge_port_auto_fillup_opt" name="discharge_port[]"><option></option></select></td><td><select class="form-control select2" name="product_id[]"> @foreach($products as $product) <option value="{{ $product->id }}">{{ $product->name }}</option> @endforeach </select></td><td><select class="form-control select2" name="package_id[]"> @foreach($packages as $package) <option value="{{ $package->id }}">{{ $package->name }}</option> @endforeach </select></td><td><input type="text" name="specification[]" class="form-control"></td><td><input type="text" name="qty[]" class="form-control"></td><td><input type="text" name="rate[]" class="form-control"></td><td><input type="text" name="amount[]" class="form-control" readonly></td><td><button type="button" class="btn btn-danger btn-sm product-remove-row"><i class="fa fa-window-close-o"></i></button></td></tr>');
+        $('.product_row').append('<tr class="product-cal"><td><select class="form-control select2" id="shipment-code" name="shipment_code_product[]"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></select></td><td><select class="form-control select2 discharge_port_auto_fillup_opt" name="discharge_port[]"><option></option></select></td><td><select class="form-control select2" name="product_id[]"> @foreach($products as $product) <option value="{{ $product->id }}">{{ $product->name }}</option> @endforeach </select></td><td><select class="form-control select2" name="package_id[]"> @foreach($packages as $package) <option value="{{ $package->id }}">{{ $package->name }}</option> @endforeach </select></td><td><input type="text" name="specification[]" class="form-control"></td><td><input type="text" name="qty[]" class="form-control"></td><td><input type="text" name="rate[]" class="form-control"></td><td><input type="text" name="amount[]" class="form-control" readonly></td><td><button type="button" class="btn btn-danger btn-sm product-remove-row"><i class="fa fa-close"></i></button></td></tr>');
         $('.select2').select2();
         discharge_port_auto_fillup();
     });
@@ -398,7 +423,7 @@ $(document).ready(function() {
     });
 
     $('.add-port-row').on('click',function(){
-        $('.port_row').append('<tr><td><select class="form-control select2" name="loading_port_id[]" required><option value="">Select Any One</option> @foreach($ports as $port) <option value="{{ $port->id }}">{{ $port->name }}</option> @endforeach </select></td><td><select class="form-control select2" name="discharge_port_id[]" required><option value="">Select Any One</option> @foreach($discharge_ports as $discharge_port) <option value="{{ $discharge_port->id }}">{{ $discharge_port->name }}</option> @endforeach </select></td><td><select class="form-control select2" name="final_destination_id[]" required><option value="">Select Any One</option> @foreach($final_destinations as $final_destination) <option value="{{ $final_destination->id }}">{{ $final_destination->name }}</option> @endforeach </select></td><td><select class="form-control select2" name="destination_country_id[]" required><option value="">Select Any One</option> @foreach($countries as $countrie) <option value="{{ $countrie->id }}">{{ $countrie->name }}</option> @endforeach </select> </td><td><button type="button" class="btn btn-danger btn-sm port-remove-row"><i class="fa fa-window-close-o"></i></button></td></tr>');
+        $('.port_row').append('<tr><td><select class="form-control select2" name="loading_port_id[]" required><option value="">Select Any One</option> @foreach($ports as $port) <option value="{{ $port->id }}">{{ $port->name }}</option> @endforeach </select></td><td><select class="form-control select2" name="discharge_port_id[]" required><option value="">Select Any One</option> @foreach($discharge_ports as $discharge_port) <option value="{{ $discharge_port->id }}">{{ $discharge_port->name }}</option> @endforeach </select></td><td><select class="form-control select2" name="final_destination_id[]" required><option value="">Select Any One</option> @foreach($final_destinations as $final_destination) <option value="{{ $final_destination->id }}">{{ $final_destination->name }}</option> @endforeach </select></td><td><select class="form-control select2" name="destination_country_id[]" required><option value="">Select Any One</option> @foreach($countries as $countrie) <option value="{{ $countrie->id }}">{{ $countrie->name }}</option> @endforeach </select> </td><td><button type="button" class="btn btn-danger btn-sm port-remove-row"><i class="fa fa-close"></i></button></td></tr>');
         $('.select2').select2();
     });
     

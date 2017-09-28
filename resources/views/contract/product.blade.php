@@ -130,13 +130,13 @@
 		   	<tfoot>
 		   		<tr>
 		   			<td colspan="8">
-		   				<button type="button" class="btn btn-primary btn-sm add_product"> Add More Product</button>
+		   				<button type="button" class="btn btn-success btn-sm add_product"><i class="fa fa-plus"></i> Add More Product</button>
 		   			</td>
 		   		</tr>
 		   	</tfoot>
 	   	</table>
 	</div>
-		<div class="card-heading" align="right"><button class="btn btn-primary"><i class=""></i> Update</button></div>
+		<div class="card-heading" align="right"><button class="btn btn-primary"><i class="fa fa-check"></i> Update</button></div>
 	</form>
 </div>
 

@@ -23,4 +23,9 @@ class Shipments extends Model
     {
         return $this->hasOne('App\StuffingInvoices','shipment_id', 'id');
     }
+
+    public function FunctionName($value='')
+    {
+        # code...
+    }
 }

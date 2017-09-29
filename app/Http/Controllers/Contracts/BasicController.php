@@ -13,6 +13,8 @@ use App\PaymentTerms;
 use App\LodingPortDetails;
 use App\Contracts;
 use App\Shipments;
+use App\CompanyDetails;
+use App\BankDetails;
 
 class BasicController extends Controller
 {
@@ -26,8 +28,10 @@ class BasicController extends Controller
 		$delivery_terms = DeliveryTerms::where('isActive',1)->get();
 		$payment_terms = PaymentTerms::where('isActive',1)->get();
         $loding_port_detail = LodingPortDetails::where('contract_id',$contract->id)->get();
+        $companys = CompanyDetails::where('isActive',1)->get();
+        $banks = BankDetails::where('isActive',1)->get();
     	
-        return view('contract.basic',compact('shipment_id','contract','contract_id','surveyors','buyers','dollor_exchanges','delivery_terms','payment_terms'));
+        return view('contract.basic',compact('banks','companys','shipment_id','contract','contract_id','surveyors','buyers','dollor_exchanges','delivery_terms','payment_terms'));
     }
 
 
@@ -50,6 +54,8 @@ class BasicController extends Controller
         $contract->payment_terms_id = $input['payment_terms_id'];
         $contract->dollor_exchange_rate = $input['dollor_exchange_rate'];
         $contract->dollor_exchange_id = $input['dollor_exchange_id'];
+        $contract->bank_id = $input['bank_id'];
+        $contract->company_id = $input['company_id'];
         $contract->save();
 
         return Redirect('contract/detail/'.$shipment->id.'#basic')->with('message','Contract Update Successfully.');

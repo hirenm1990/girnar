@@ -15,6 +15,6 @@ class VGMController extends Controller
 
     public function update(Request $request, $shipment_id )
     {
-    	return Redirect('contract/detail/'.$shipment_id.'#raw-material')->with('message','Raw Material Update Successfully.');
+    	return Redirect('contract/detail/'.$shipment_id.'#vgm')->with('message','Raw Material Update Successfully.');
     }
 }

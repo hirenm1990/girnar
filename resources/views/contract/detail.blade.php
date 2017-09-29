@@ -14,7 +14,7 @@
                 --}}
                 </div>
                 
-                <div class="panel-body">
+                <div class="card-body">
                 @if (Session()->has('message')) 
                   <div class="alert alert-success msg" role="alert">
                     {{ Session()->get('message') }}

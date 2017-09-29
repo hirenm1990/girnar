@@ -8,6 +8,18 @@
 	    <div class="col-md-6">
 	        
 	        <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Company</label>
+                <div class="col-sm-9">
+                    <select class="form-control select2" name="company_id" placeholder="">
+                        <option value="">Select Any One</option>
+                        @foreach($companys as $company)
+                            <option value="{{ $company->id }}" @if( $company->id == $contract->company_id ) selected @endif>{{ $company->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
 	            <label class="col-sm-3 form-control-label">Contract No.</label>
 	            <div class="col-sm-9">
 	                <input type="text" class="form-control" name="contract_no" value="{{ $contract->contract_no }}" required>
@@ -112,6 +124,18 @@
                         <option value="">Select Any One</option>
                         @foreach($dollor_exchanges as $dollor_exchange)
                             <option value="{{ $dollor_exchange->id }}" @if($dollor_exchange->id == $contract->dollor_exchange_id) selected @endif>{{ $dollor_exchange->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Bank</label>
+                <div class="col-sm-9">
+                    <select class="form-control select2" name="bank_id" placeholder="">
+                        <option value="">Select Any One</option>
+                        @foreach($banks as $bank)
+                            <option value="{{ $bank->id }}" @if( $bank->id == $contract->bank_id ) selected @endif>{{ $bank->name }}</option>
                         @endforeach
                     </select>
                 </div>

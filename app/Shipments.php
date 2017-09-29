@@ -24,8 +24,8 @@ class Shipments extends Model
         return $this->hasOne('App\StuffingInvoices','shipment_id', 'id');
     }
 
-    public function FunctionName($value='')
+    public function commeinvoice()
     {
-        # code...
+        return $this->hasOne('App\CommercialInvoiceDetails', 'shipment_id', 'id');
     }
 }

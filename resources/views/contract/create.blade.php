@@ -24,18 +24,33 @@
         {{ csrf_field() }}
         <div class="form-group row">
         <div class="col-md-6">
+
+            <div class="form-group row">
+                <label class="col-sm-3 form-control-label">Company</label>
+                <div class="col-sm-9">
+                    <select class="form-control select2" name="company_id" placeholder="">
+                        <option value="">Select Any One</option>
+                        @foreach($companys as $company)
+                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 form-control-label">Contract No.</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" name="contract_no" required>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 form-control-label">Contract Date</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control contract_date" name="contract_date" required>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 form-control-label">Surveyor Company</label>
                 <div class="col-sm-9">
@@ -47,6 +62,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label class="col-sm-3 form-control-label">Purchase Order No.</label>
                 <div class="col-sm-5">
@@ -56,6 +72,7 @@
                     <input type="file" name="upload_doc" class="form-control btn btn-info btn-sm">
                 </div>
             </div>
+            
             <div class="form-group row">
                 <label class="col-sm-3 form-control-label">Buyer's Name</label>
                 <div class="col-sm-9">
@@ -141,17 +158,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label class="col-sm-3 form-control-label">Company</label>
-                <div class="col-sm-9">
-                    <select class="form-control select2" name="company_id" placeholder="">
-                        <option value="">Select Any One</option>
-                        @foreach($companys as $company)
-                            <option value="{{ $company->id }}">{{ $company->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+            
 
             <div class="form-group row">
                 <label class="col-sm-3 form-control-label">Bank</label>

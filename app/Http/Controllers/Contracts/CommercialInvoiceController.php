@@ -43,7 +43,7 @@ class CommercialInvoiceController extends Controller
 			$comm_invoice->shipment_id = $shipment_id;
 			$comm_invoice->save();
 		}
-		
+
     	return view('contract.comminvoice',compact('comm_invoice','loding_port_detail_id','payment_terms','delivery_terms','countries','buyers','loding_port_details','banks','companys','buyers','contract','shipment','shipment_id'));
     }
 

@@ -9,7 +9,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"> -->
+    <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/datepicker.min.css') }}" rel="stylesheet">
@@ -104,7 +105,7 @@
     <script src="{{ asset('plugins/datatable/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('plugins/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <!-- <script src="{{ asset('js/datepicker.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script> -->
     @yield('jquery')
 </body>
 </html>

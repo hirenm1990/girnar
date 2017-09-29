@@ -28,4 +28,9 @@ class Shipments extends Model
     {
         return $this->hasOne('App\CommercialInvoiceDetails', 'shipment_id', 'id');
     }
+
+    public function vgm()
+    {
+        return $this->hasOne( 'App\VGMDetails', 'shipment_id', 'id' );
+    }
 }

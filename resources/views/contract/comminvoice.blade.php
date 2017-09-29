@@ -10,7 +10,7 @@
 	    		<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Manufacturer/ Exporter/ Shipper/ Beneficiary Name</label>
                 	<div class="col-sm-9">
-                		@if( $comm_invoice->company_name )
+                		@if( $comm_invoice->company_name !="" )
                 			<input type="text" name="company_name" class="form-control" value="{{ $comm_invoice->company_name }}">
                 		@else
                 			<input type="text" name="company_name" class="form-control" value="{{ $contract->company->name }}">
@@ -21,7 +21,7 @@
 	    		<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Manufacturer/ Exporter/ Shipper/ Beneficiary Address</label>
                 	<div class="col-sm-9">
-                    	@if( $comm_invoice->company_detail )
+                    	@if( $comm_invoice->company_detail !="" )
                     		<textarea name="company_detail" class="form-control" rows="3">{{ $comm_invoice->company_detail }}</textarea>
                     	@else
                     		<textarea name="company_detail" class="form-control" rows="3">{{ $contract->company->address }}</textarea>
@@ -32,7 +32,7 @@
             	<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Beneficiary Bank Name</label>
                 	<div class="col-sm-9">
-                		@if( $comm_invoice->bank_name )
+                		@if( $comm_invoice->bank_name !="" )
                 			<input type="text" name="bank_name" class="form-control" value="{{ $comm_invoice->bank_name }}">
                 		@else
                 			<input type="text" name="bank_name" class="form-control" value="{{ $contract->bank->name }}">
@@ -43,7 +43,7 @@
             	<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Beneficiary Bank Details</label>
                 	<div class="col-sm-9">
-                    	@if( $comm_invoice->bank_detail )
+                    	@if( $comm_invoice->bank_detail !="" )
                     		<textarea name="bank_detail" class="form-control" rows="3">{{ $comm_invoice->bank_detail }}</textarea>
                     	@else
                     		<textarea name="bank_detail" class="form-control" rows="3">{{ $contract->bank->address }}</textarea>
@@ -54,7 +54,7 @@
             	<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Buyer's Name</label>
                 	<div class="col-sm-9">
-                		@if( $comm_invoice->buyer_name )
+                		@if( $comm_invoice->buyer_name !="" )
                 			<input type="text" name="buyer_name" class="form-control" value="{{ $comm_invoice->buyer_name }}">
                 		@else
                 			<input type="text" name="buyer_name" class="form-control" value="{{ $contract->buyer->name }}">
@@ -65,7 +65,7 @@
             	<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Buyer's Address</label>
                 	<div class="col-sm-9">
-                    	@if( $comm_invoice->buyer_address )
+                    	@if( $comm_invoice->buyer_address !="" )
                     		<textarea name="buyer_address" class="form-control" rows="3">{{ $comm_invoice->buyer_address }}</textarea>
                     	@else
                     		<textarea name="buyer_address" class="form-control" rows="3">{{ $contract->buyer->address }}</textarea>
@@ -90,7 +90,7 @@
             	<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Notify Party</label>
                 	<div class="col-sm-9">
-                    	@if( $comm_invoice->notify_party )
+                    	@if( $comm_invoice->notify_party !="" )
                     		<textarea class="form-control" rows="3" name="notify_party">{{ $comm_invoice->notify_party }}</textarea>
                     	@else
                     		<textarea class="form-control" rows="3" name="notify_party">{{ $contract->notifier_party }}</textarea>
@@ -101,7 +101,7 @@
             	<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Buyer Bank :(Consignee)</label>
                 	<div class="col-sm-9">
-                    	@if( $comm_invoice->consignee_party )
+                    	@if( $comm_invoice->consignee_party !="" )
                     		<textarea class="form-control" rows="3" name="consignee_party">{{ $comm_invoice->consignee_party }}</textarea>
                     	@else
                     		<textarea class="form-control" rows="3" name="consignee_party">{{ $contract->consignee_party }}</textarea>
@@ -196,7 +196,7 @@
             	<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Terms of Delivery</label>
                 	<div class="col-sm-9">
-                    	@if( $comm_invoice->terms_of_delivery )
+                    	@if( $comm_invoice->terms_of_delivery !="" )
 	                    	<select class="form-control select2" name="terms_of_delivery">
 	                        	<option value="">Select Any One</option>
 	                        	@foreach($delivery_terms as $delivery_term)
@@ -217,7 +217,7 @@
             	<div class="form-group row">
                 	<label class="col-sm-3 form-control-label">Terms of Payment</label>
                 	<div class="col-sm-9">
-                    	@if( $comm_invoice->terms_of_payment )
+                    	@if( $comm_invoice->terms_of_payment !="" )
 	                    	<select class="form-control select2" name="terms_of_payment">
 	                        	<option value="">Select Any One</option>
 	                        	@foreach($payment_terms as $payment_term)
